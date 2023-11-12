@@ -1,0 +1,25 @@
+/* Breadcrumbs.module.css */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumbItem {
+  display: flex;
+  align-items: center;
+  font-family: "EuclidFlex Bold", sans-serif;
+  font-size: 18px;
+}
+
+.breadcrumbItem + .breadcrumbItem::before {
+  content: "/";
+  margin: 0 0.5rem;
+  color: var(--gray-light); /* Цвет разделителя, если нужно изменить */
+}
+
+.breadcrumbItem:last-child {
+  margin-right: 0;
+}
