@@ -1,6 +1,6 @@
 // Breadcrumbs.tsx
 import React from "react";
-import { Breadcrumb, Container } from "react-bootstrap";
+import { Breadcrumb } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "./Breadcrumbs.module.css"; // Подключение файла стилей
 

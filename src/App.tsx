@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  HashRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-} from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/BaggageListPage";
 import BaggagePage from "./pages/BaggageDetailsPage";
 import HomePage from "./pages/HomePage";
