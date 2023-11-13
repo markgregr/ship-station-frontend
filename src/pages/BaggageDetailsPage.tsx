@@ -9,6 +9,7 @@ const BaggageDetailsPage: React.FC = () => {
   const breadcrumbsPaths = [
     { to: "/", label: "Главная" },
     { to: "/baggage", label: "Список багажей" },
+    { to: "/baggage/:id", label: "Подробнее о багаже" },
   ];
 
   const { id } = useParams<{ id?: string }>();

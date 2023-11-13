@@ -68,7 +68,15 @@ const fetchBaggageList = async (searchCode: string): Promise<Baggage[]> => {
   } catch (error) {
     // В случае ошибки выводим сообщение в консоль и возвращаем моковые данные
     console.error("Ошибка при получении списка багажей:", error);
-    return mockBaggageData;
+
+    // Фильтруем моковые данные
+    const filteredMockData = mockBaggageData.filter((mockBaggage) =>
+      mockBaggage.baggage_code.startsWith(searchCode)
+    );
+
+    // Возвращаем отфильтрованные моковые данные
+    console.log(filteredMockData);
+    return filteredMockData;
   }
 };
 

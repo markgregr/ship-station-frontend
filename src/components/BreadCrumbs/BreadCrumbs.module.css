@@ -19,6 +19,10 @@
   margin: 0 0.5rem;
   color: var(--gray-light); /* Цвет разделителя, если нужно изменить */
 }
+.baggageItemActive {
+  color: #007bff; /* Синий цвет для подсвеченного элемента */
+  /* Другие стили по вашему усмотрению, например, фоновый цвет */
+}
 
 .breadcrumbItem:last-child {
   margin-right: 0;
