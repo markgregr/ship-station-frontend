@@ -1,26 +1,43 @@
 import React from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  HashRouter,
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+} from "react-router-dom";
 import MainPage from "./pages/BaggageListPage";
 import BaggagePage from "./pages/BaggageDetailsPage";
 import HomePage from "./pages/HomePage";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage></HomePage>,
-  },
-  {
-    path: "/baggage",
-    element: <MainPage></MainPage>,
-  },
-  {
-    path: "/baggage/:id",
-    element: <BaggagePage></BaggagePage>,
-  },
-]);
+// const router = createBrowserHashRouter([
+//   {
+//     path: "/",
+//     element: <HomePage></HomePage>,
+//   },
+//   {
+//     path: "/baggage",
+//     element: <MainPage></MainPage>,
+//   },
+//   {
+//     path: "/baggage/:id",
+//     element: <BaggagePage></BaggagePage>,
+//   },
+// ]);
 
 const App: React.FC = () => {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<HomePage></HomePage>}></Route>
+        <Route path="/baggage" element={<MainPage></MainPage>}></Route>
+        <Route
+          path="/baggage/:id"
+          element={<BaggagePage></BaggagePage>}
+        ></Route>
+      </Routes>
+    </HashRouter>
+  );
 };
 
 export default App;
