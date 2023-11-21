@@ -21,7 +21,7 @@ const BaggageDetailsComponent: React.FC<BaggageDetailsComponentProps> = ({
         <Card.Img
           className={styles.cardImg}
           variant="top"
-          src={baggageDetails.photo_url}
+          src={baggageDetails.photo}
         />
         <Card.Body>
           <Card.Title className={styles.cardTitle}>

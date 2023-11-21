@@ -22,7 +22,7 @@ const BaggageList: React.FC<BaggageListProps> = ({ baggageData }) => {
               <Card className={styles.card}>
                 <Card.Img
                   variant="top"
-                  src={item.photo_url}
+                  src={item.photo}
                   className={styles.cardsImg}
                 />
                 <Card.Body>

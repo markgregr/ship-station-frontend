@@ -15,7 +15,7 @@ interface Baggage {
   baggage_type: string;
   owner_name: string;
   pasport_details: string;
-  photo_url: string;
+  photo: string;
   size: string;
   weight: number;
 }

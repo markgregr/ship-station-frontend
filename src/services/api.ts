@@ -3,7 +3,7 @@ import { ApiResponse, Baggage } from "../types/types";
 import { mockBaggageData } from "../mock/mockData";
 
 // Базовый URL API
-const API_BASE_URL = "http://localhost:8081";
+const API_BASE_URL = "/api";
 
 // Функция для получения деталей багажа по его ID
 const fetchBaggageDetails = async (
@@ -21,7 +21,7 @@ const fetchBaggageDetails = async (
     }
 
     // Возвращаем данные в формате ApiResponse
-    return { data };
+    return { data: data.baggage };
   } catch (error) {
     // В случае ошибки выводим сообщение в консоль и возвращаем моковые данные
     console.error("Ошибка при получении деталей багажа:", error);
@@ -34,7 +34,7 @@ const fetchBaggageList = async (searchCode: string): Promise<Baggage[]> => {
   try {
     // Отправляем запрос на сервер для получения списка багажей по коду поиска
     const response = await fetch(
-      `${API_BASE_URL}/baggage?searchCode=${encodeURIComponent(searchCode)}`
+      `${API_BASE_URL}/baggage/?searchCode=${encodeURIComponent(searchCode)}`
     );
 
     // Проверяем успешность ответа
@@ -45,7 +45,7 @@ const fetchBaggageList = async (searchCode: string): Promise<Baggage[]> => {
 
     // Получаем данные из ответа
     const responseData = await response.json();
-
+    console.log(responseData.baggages.baggages);
     // Проверяем наличие свойства 'baggages' в ответе
     if (!responseData.baggages || responseData.baggages.baggages === null) {
       console.warn("Багаж не найден");
@@ -54,7 +54,7 @@ const fetchBaggageList = async (searchCode: string): Promise<Baggage[]> => {
     }
 
     // Получаем список багажей
-    const baggages = responseData.baggages.baggages;
+    const baggages: Baggage[] = responseData.baggages.baggages;
 
     // Проверяем, что 'baggages' - это массив и он не пустой
     if (!Array.isArray(baggages) || baggages.length === 0) {

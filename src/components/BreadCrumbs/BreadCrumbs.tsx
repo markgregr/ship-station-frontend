@@ -1,6 +1,5 @@
 // Breadcrumbs.tsx
 import React from "react";
-import { Breadcrumb } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "./Breadcrumbs.module.css"; // Подключение файла стилей
 
@@ -10,19 +9,20 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ paths }) => {
   return (
-    <Breadcrumb className={styles.breadcrumb}>
+    <div className={styles.breadcrumb}>
       {paths.map((path, index) => (
-        <Breadcrumb.Item
-          key={index}
-          linkAs={Link}
-          linkProps={{ to: path.to }}
-          active={index === paths.length}
-          className={styles.breadcrumbItem}
-        >
-          {path.label}
-        </Breadcrumb.Item>
+        <React.Fragment key={index}>
+          {index > 0 && <span className={styles.separator}>/</span>}
+          {index === paths.length - 1 ? (
+            <span className={styles.breadcrumbItem}>{path.label}</span>
+          ) : (
+            <Link to={path.to} className={styles.breadcrumbItem}>
+              {path.label}
+            </Link>
+          )}
+        </React.Fragment>
       ))}
-    </Breadcrumb>
+    </div>
   );
 };
 

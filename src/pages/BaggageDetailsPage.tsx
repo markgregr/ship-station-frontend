@@ -6,14 +6,13 @@ import BaggageDetailsComponent from "../components/BaggageDetails/BaggageDetails
 import Breadcrumbs from "../components/BreadCrumbs/BreadCrumbs";
 
 const BaggageDetailsPage: React.FC = () => {
+  const { id } = useParams<{ id?: string }>();
+  const { baggageDetails } = useFetchBaggageDetails(id || "");
   const breadcrumbsPaths = [
     { to: "/", label: "Главная" },
     { to: "/baggage", label: "Список багажей" },
-    { to: "/baggage/:id", label: "Подробнее о багаже" },
+    { to: `/baggage/${id}`, label: "Подробнее о багаже" },
   ];
-
-  const { id } = useParams<{ id?: string }>();
-  const { baggageDetails } = useFetchBaggageDetails(id || "");
   return (
     <div>
       <Breadcrumbs paths={breadcrumbsPaths}></Breadcrumbs>
