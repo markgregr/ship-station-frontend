@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import styles from "./BaggageList.module.css";
 import { Baggage } from "../../types/types";
-import defaultImage from "../../../public/BagTracker.png";
 
 interface BaggageListProps {
   baggageData: Baggage[];
@@ -23,7 +22,7 @@ const BaggageList: React.FC<BaggageListProps> = ({ baggageData }) => {
               <Card className={styles.card}>
                 <Card.Img
                   variant="top"
-                  src={item.photo || defaultImage}
+                  src={item.photo}
                   className={styles.cardsImg}
                 />
                 <Card.Body>

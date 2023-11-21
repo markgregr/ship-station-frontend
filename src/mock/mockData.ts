@@ -1,5 +1,6 @@
 // mockData.ts
 import { Baggage } from "../types/types";
+import image from "../../public/BagTracker.png";
 
 const mockBaggageData: Baggage[] = [
   {
@@ -10,7 +11,7 @@ const mockBaggageData: Baggage[] = [
     baggage_type: "Small Bag",
     owner_name: "John Doe",
     pasport_details: "ABC123",
-    photo: "../../public/BagTracker.png",
+    photo: image,
     size: "20x15x10",
     weight: 5,
   },
@@ -22,7 +23,7 @@ const mockBaggageData: Baggage[] = [
     baggage_type: "Small Bag",
     owner_name: "John Doe",
     pasport_details: "ABC123",
-    photo: "../../public/BagTracker.png",
+    photo: image,
     size: "20x15x10",
     weight: 5,
   },
@@ -34,7 +35,7 @@ const mockBaggageData: Baggage[] = [
     baggage_type: "Small Bag",
     owner_name: "John Doe",
     pasport_details: "ABC123",
-    photo: "../../public/BagTracker.png",
+    photo: image,
     size: "20x15x10",
     weight: 5,
   },
@@ -46,7 +47,7 @@ const mockBaggageData: Baggage[] = [
     baggage_type: "Small Bag",
     owner_name: "John Doe",
     pasport_details: "ABC123",
-    photo: "../../public/BagTracker.png",
+    photo: image,
     size: "20x15x10",
     weight: 5,
   },
