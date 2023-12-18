@@ -9,8 +9,8 @@ const App: React.FC = () => {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<AuthPage />}></Route>
-        {/* <Route path="/" element={<HomePage />}></Route> */}
+        <Route path="/auth" element={<AuthPage />}></Route>
+        <Route path="/" element={<HomePage />}></Route>
         <Route path="/baggage" element={<MainPage />}></Route>
         <Route path="/baggage/:id" element={<BaggagePage />}></Route>
       </Routes>

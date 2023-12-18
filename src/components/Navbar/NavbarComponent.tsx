@@ -1,5 +1,5 @@
 // NavbarComponent.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Navbar,
   Container,
@@ -9,22 +9,40 @@ import {
   Button,
 } from "react-bootstrap";
 import styles from "./NavbarComponent.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSearchCode } from "../../redux/baggage/baggageListSelectors";
+import { setSearchCode } from "../../redux/baggage/baggageListSlice";
 
 interface NavbarComponentProps {
   onSearch: (searchCode: string) => void;
 }
 
 const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
-  const [searchCode, setSearchCode] = useState<string>("");
+  const dispatch = useDispatch();
+  const searchCodeRedux = useSelector(selectSearchCode);
+  const initialSearchCode =
+    typeof searchCodeRedux === "string" ? searchCodeRedux : "";
+
+  const [searchCode, setSearchCodeLocal] = useState<string>(initialSearchCode);
+
+  useEffect(() => {
+    // Обновляем локальный state при изменении searchCode в Redux
+    setSearchCodeLocal(initialSearchCode);
+  }, [initialSearchCode]);
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch(searchCode);
+    // Сохраняем searchCode в Redux и localStorage
+    dispatch(setSearchCode(searchCode));
+    localStorage.setItem("searchCode", searchCode);
   };
 
   const handleShowAllBaggage = () => {
-    setSearchCode(""); // Очищаем searchCode
-    onSearch(""); // Вызываем onSearch с пустой строкой
+    setSearchCodeLocal("");
+    onSearch("");
+    // Сохраняем searchCode в Redux и localStorage
+    dispatch(setSearchCode(""));
   };
 
   return (
@@ -44,7 +62,7 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
               className={styles.searchInput}
               aria-label="Поиск"
               value={searchCode}
-              onChange={(e) => setSearchCode(e.target.value)}
+              onChange={(e) => setSearchCodeLocal(e.target.value)}
             />
             <Button
               variant="outline-success"

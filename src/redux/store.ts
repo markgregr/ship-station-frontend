@@ -2,10 +2,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authMiddleware from "./auth/authMiddleware";
 import authReducer from "./auth/authSlice";
+import baggageListReducer from "./baggage/baggageListSlice";
+import baggageDetailsReducer from "./baggage/baggageDetailsSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    baggageList: baggageListReducer,
+    baggageDetails: baggageDetailsReducer,
     // Добавьте другие редюсеры, если необходимо
   },
   middleware: (getDefaultMiddleware) =>

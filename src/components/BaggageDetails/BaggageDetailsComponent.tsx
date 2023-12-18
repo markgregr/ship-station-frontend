@@ -2,18 +2,31 @@
 import React from "react";
 import { Container, Card } from "react-bootstrap";
 import styles from "./BaggageDetailsComponent.module.css";
-import { Baggage } from "../../types/types";
+import { BaggageDetails } from "../../redux/baggage/baggageDetailsSlice";
 
 interface BaggageDetailsComponentProps {
-  baggageDetails: Baggage | null;
+  baggageDetails: BaggageDetails | null;
 }
 
 const BaggageDetailsComponent: React.FC<BaggageDetailsComponentProps> = ({
   baggageDetails,
 }) => {
-  if (!baggageDetails || !baggageDetails.airline) {
+  console.log(baggageDetails);
+
+  if (!baggageDetails || !baggageDetails.baggage) {
     return <div>No baggage details available.</div>;
   }
+
+  const {
+    airline,
+    baggage_code,
+    owner_name,
+    pasport_details,
+    baggage_type,
+    weight,
+    size,
+    photo,
+  } = baggageDetails.baggage;
 
   return (
     <Container>
@@ -21,24 +34,22 @@ const BaggageDetailsComponent: React.FC<BaggageDetailsComponentProps> = ({
         <Card.Img
           className={styles.cardImg}
           variant="top"
-          src={baggageDetails.photo}
+          src={photo} // используйте photo вместо baggageDetails.photo
         />
         <Card.Body>
-          <Card.Title className={styles.cardTitle}>
-            {baggageDetails.baggage_code}
-          </Card.Title>
+          <Card.Title className={styles.cardTitle}>{baggage_code}</Card.Title>
           <Card.Text className={styles.cardText}>
-            <strong>Авиакомпания:</strong> {baggageDetails.airline}
+            <strong>Авиакомпания:</strong> {airline}
             <br />
-            <strong>Отправитель:</strong> {baggageDetails.owner_name}
+            <strong>Отправитель:</strong> {owner_name}
             <br />
-            <strong>Паспортные данные:</strong> {baggageDetails.pasport_details}
+            <strong>Паспортные данные:</strong> {pasport_details}
             <br />
-            <strong>Тип багажа:</strong> {baggageDetails.baggage_type}
+            <strong>Тип багажа:</strong> {baggage_type}
             <br />
-            <strong>Вес:</strong> {baggageDetails.weight} kg
+            <strong>Вес:</strong> {weight} kg
             <br />
-            <strong>Размер:</strong> {baggageDetails.size}
+            <strong>Размер:</strong> {size}
           </Card.Text>
         </Card.Body>
       </Card>
