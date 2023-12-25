@@ -4,13 +4,16 @@ import authMiddleware from "./auth/authMiddleware";
 import authReducer from "./auth/authSlice";
 import baggageListReducer from "./baggage/baggageListSlice";
 import baggageDetailsReducer from "./baggage/baggageDetailsSlice";
+import deliveryListReducer from "./delivery/deliveryListSlice";
+import deliveryDetailsReducer from "./delivery/deliveryDetailsSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     baggageList: baggageListReducer,
     baggageDetails: baggageDetailsReducer,
-    // Добавьте другие редюсеры, если необходимо
+    deliveryList: deliveryListReducer,
+    deliveryDetails: deliveryDetailsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -20,5 +23,4 @@ const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
 export default store;

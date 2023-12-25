@@ -1,23 +1,28 @@
-// AuthForm.tsx
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import styles from "./AuthForm.module.css"; // Путь к файлу стилей
+import { useNavigate } from "react-router-dom"; // Импортируем useNavigate
+import styles from "./AuthForm.module.css";
 
 interface AuthFormProps {
   onLogin: (email: string, password: string) => void;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
+  const navigate = useNavigate(); // Инициализируем useNavigate
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
     onLogin(email, password);
+    navigate("/baggage");
+  };
+  const handleRegister = () => {
+    navigate("/register");
   };
 
   return (
     <Form className={styles.authForm}>
-      <Form.Label ClassName={styles.title}>Вход</Form.Label>
+      <Form.Label className={styles.title}>Вход</Form.Label>
       <Form.Group controlId="formEmail" className={styles.formgroup}>
         <Form.Label className={styles.label}>Email:</Form.Label>
         <Form.Control
@@ -45,7 +50,10 @@ const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
         onClick={handleLogin}
         className={styles.loginButton}
       >
-        Login
+        Вход
+      </Button>
+      <Button onClick={handleRegister} className={styles.loginButton}>
+        Регистрация
       </Button>
     </Form>
   );

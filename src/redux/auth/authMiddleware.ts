@@ -1,23 +1,27 @@
 // authMiddleware.ts
 import { Middleware } from "redux";
-import { login, logout } from "./authActions";
-import { loginSuccess, loginFailure } from "./authSlice";
-import axios from "axios";
-
-// Базовый URL API
-const API_BASE_URL = "/api";
+import { login, logout, register } from "./authActions";
+import {
+  loginSuccess,
+  loginFailure,
+  logoutSuccess,
+  registerSuccess,
+} from "./authSlice";
+import axios from "../../utils/axiosConfig";
 
 const authMiddleware: Middleware = (store) => (next) => async (action) => {
   if (login.match(action)) {
     try {
       const { email, password } = action.payload;
-      const response = await axios.post(`${API_BASE_URL}/user/login`, {
+      const response = await axios.post(`/user/login`, {
         email,
         password,
       });
 
       if (response.status === 200) {
-        store.dispatch(loginSuccess());
+        store.dispatch(
+          loginSuccess({ token: response.data.access_token, email })
+        );
       } else {
         store.dispatch(loginFailure());
       }
@@ -26,8 +30,31 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
       store.dispatch(loginFailure());
     }
   } else if (logout.match(action)) {
-    // Обработка логики для выхода
-    // Например, очистка данных о пользователе в состоянии
+    store.dispatch(logoutSuccess());
+  } else if (register.match(action)) {
+    try {
+      const { full_name, email, password } = action.payload;
+      const response = await axios.post(`/user/register`, {
+        full_name,
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        store.dispatch(
+          registerSuccess({
+            full_name,
+            token: response.data.access_token,
+            email,
+          })
+        );
+      } else {
+        store.dispatch(loginFailure());
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      store.dispatch(loginFailure());
+    }
   }
 
   return next(action);

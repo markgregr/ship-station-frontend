@@ -1,18 +1,25 @@
+// App.tsx
 import React from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
-import MainPage from "./pages/BaggageListPage";
-import BaggagePage from "./pages/BaggageDetailsPage";
-import HomePage from "./pages/HomePage"; // Добавил импорт
+import HomePage from "./pages/HomePage";
+import BaggageListPage from "./pages/BaggageListPage";
+import BaggageDetailsPage from "./pages/BaggageDetailsPage";
+import DeliveryListPage from "./pages/DeliveryListPage";
+import DeliveryDetailsPage from "./pages/DeliveryDetailsPage";
+import RegisterPage from "./pages/RegisterPage";
 
 const App: React.FC = () => {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/auth" element={<AuthPage />}></Route>
-        <Route path="/" element={<HomePage />}></Route>
-        <Route path="/baggage" element={<MainPage />}></Route>
-        <Route path="/baggage/:id" element={<BaggagePage />}></Route>
+        Ы
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/baggage" element={<BaggageListPage />} />
+        <Route path="/baggage/:id" element={<BaggageDetailsPage />} />
+        <Route path="/delivery" element={<DeliveryListPage />} />
+        <Route path="/delivery/:id" element={<DeliveryDetailsPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </HashRouter>
   );

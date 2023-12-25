@@ -1,21 +1,26 @@
-// authThunks.ts
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../utils/axiosConfig";
+import { logoutSuccess } from "./authSlice";
 
-// Базовый URL API
-const API_BASE_URL = "/api";
+interface LoginResponse {
+  access_token: string;
+  email: string;
+}
 
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }: { email: string; password: string }) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/user/login`, {
+      const response = await axios.post<LoginResponse>(`/user/login`, {
         email,
         password,
       });
 
       if (response.status === 200) {
-        return { email }; // Возвращаем данные о пользователе
+        return {
+          token: response.data.access_token,
+          email: response.data.email,
+        };
       } else {
         throw new Error("Authentication failed");
       }
@@ -24,3 +29,10 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+// Синхронный экшен для выхода из системы
+export const logout = () => {
+  return (dispatch: any) => {
+    dispatch(logoutSuccess());
+  };
+};

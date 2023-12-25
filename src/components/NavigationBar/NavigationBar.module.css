@@ -42,7 +42,16 @@
   text-decoration: none;
   transition: background 0.5s ease-in-out;
 }
-
+.btn {
+  padding: 10px 30px;
+  cursor: pointer;
+  color: #fff;
+  font-family: "EuclidFlex Bold", sans-serif;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background 0.5s ease-in-out;
+  background-color: chocolate;
+}
 .navLink:hover,
 .navLink:active,
 .navLink:focus {

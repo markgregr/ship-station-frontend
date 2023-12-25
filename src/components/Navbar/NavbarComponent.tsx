@@ -32,16 +32,22 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSearch(searchCode);
-    // Сохраняем searchCode в Redux и localStorage
-    dispatch(setSearchCode(searchCode));
-    localStorage.setItem("searchCode", searchCode);
-  };
 
+    const encodedSearchCode = encodeURIComponent(searchCode);
+
+    // Передаем cleanedSearchCode в onSearch
+    onSearch(encodedSearchCode);
+
+    // Сохраняем cleanedSearchCode в Redux
+    dispatch(setSearchCode(encodedSearchCode));
+  };
   const handleShowAllBaggage = () => {
     setSearchCodeLocal("");
+
+    // Передаем пустую строку в onSearch
     onSearch("");
-    // Сохраняем searchCode в Redux и localStorage
+
+    // Сохраняем пустую строку в Redux и localStorage
     dispatch(setSearchCode(""));
   };
 

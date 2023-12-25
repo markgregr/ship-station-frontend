@@ -1,23 +1,30 @@
 // AuthPage.tsx
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Используем новый хук
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AuthForm from "../components/AuthForm/AuthForm";
 import { login } from "../redux/auth/authActions";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
+import { AppDispatch } from "../redux/store";
+import { selectDeliveryID } from "../redux/baggage/baggageListSelectors";
+import { selectIsAuthenticated } from "../redux/auth/authSelectors";
 
 const AuthPage: React.FC = () => {
-  const navigate = useNavigate(); // Заменили useHistory на useNavigate
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch<AppDispatch>();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const handleLogin = (email: string, password: string) => {
     dispatch(login({ email, password }));
-    navigate("/"); // Заменили history.push на navigate
   };
-
+  const deliveryID = useSelector(selectDeliveryID);
+  const showConstructor = {
+    showConstructorButton: deliveryID > 0,
+    deliveryID,
+  };
   return (
     <div>
-      <NavigationBar></NavigationBar>
+      <NavigationBar
+        showConstructor={showConstructor}
+        isAuthenticated={isAuthenticated}
+      />
       <AuthForm onLogin={handleLogin} />
     </div>
   );

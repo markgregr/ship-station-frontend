@@ -1,6 +1,6 @@
 // baggageDetailsThunk.ts
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../utils/axiosConfig";
 import { setBaggageDetails } from "./baggageDetailsSlice";
 
 interface BaggageDetailsResponse {
@@ -27,7 +27,7 @@ export const getBaggageDetails = createAsyncThunk<
   async (id, { dispatch, rejectWithValue }) => {
     try {
       const response = await axios.get<BaggageDetailsResponse>(
-        `/api/baggage/${id}`
+        `/baggage/${id}`
       );
 
       dispatch(setBaggageDetails(response.data));

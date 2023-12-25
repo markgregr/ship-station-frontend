@@ -1,0 +1,124 @@
+/* NavbarDelivery.module.css */
+
+/* Стили для блока, содержащего линки и форму поиска */
+.nav {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin: 1%;
+  padding: 1%;
+}
+
+/* Стили для линков внутри блока .navbar-nav */
+.navLink {
+  width: 180px;
+  height: 60px;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  transition: 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-family: "EuclidFlex Bold", sans-serif;
+  font-size: 18px;
+}
+
+.navLink:hover,
+.navLink:active,
+.navLink:focus {
+  transition: 0.5s ease-in-out;
+  background: var(--firstBlueShape);
+}
+
+/* Дополнительные стили для формы поиска */
+.form {
+  display: flex;
+  align-items: center;
+  margin-left: 5%;
+  padding: 0;
+  margin-top: 2%;
+  margin-bottom: 0;
+}
+
+.collapse {
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  color: white;
+  font-size: 20px;
+  border: 1px solid var(--euclidflex-medium);
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+  height: 40px;
+}
+
+.datePicker {
+  transform: translate(-50%, -50%);
+  font-family: "Roboto Mono", monospace;
+  color: #ffffff;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}
+
+.datePicker::-webkit-calendar-picker-indicator {
+  background-color: #ffffff;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: #ffc9c969;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+/* Расположение значений списка в столбик */
+.dropdownContent a {
+  display: block;
+  color: rgba(255, 255, 255, 0.298);
+  padding: 10px;
+  text-decoration: none;
+}
+
+.dropdownContent a:hover {
+  background-color: var(--firstBlueShape);
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdownToggle {
+  background-color: var(--euclidflex-medium);
+  border: none;
+  color: rgba(255, 255, 255, 0.509);
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2; /* Увеличиваем z-index, чтобы кнопка оказалась поверх списка */
+}
+
+/* Исправление для кнопок, чтобы они были ровно выровнены с другими элементами */
+.searchButton,
+.dropdownToggle {
+  margin-top: 0; /* Убираем отступ сверху */
+}
