@@ -5,12 +5,21 @@ const instance = axios.create({
   baseURL: "/api", // ваш базовый URL API
 });
 
-instance.interceptors.request.use((config) => {
-  const token = localStorage.getItem("access_token"); // предполагается, что вы сохраняете токен в localStorage после успешной авторизации
-  if (token) {
-    config.headers.Authorization = `${token}`;
+instance.interceptors.request.use(
+  (config) => {
+    const authStateString = localStorage.getItem("authState");
+    const authState = authStateString ? JSON.parse(authStateString) : null;
+    const token =
+      authState && typeof authState === "object" ? authState.token : null;
+
+    if (token) {
+      config.headers.Authorization = `${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-});
+);
 
 export default instance;

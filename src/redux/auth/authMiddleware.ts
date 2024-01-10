@@ -6,6 +6,7 @@ import {
   loginFailure,
   logoutSuccess,
   registerSuccess,
+  loginStart,
 } from "./authSlice";
 import axios from "../../utils/axiosConfig";
 
@@ -13,6 +14,9 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
   if (login.match(action)) {
     try {
       const { email, password } = action.payload;
+
+      store.dispatch(loginStart());
+
       const response = await axios.post(`/user/login`, {
         email,
         password,
@@ -20,7 +24,11 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
 
       if (response.status === 200) {
         store.dispatch(
-          loginSuccess({ token: response.data.access_token, email })
+          loginSuccess({
+            token: response.data.access_token,
+            email: response.data.email,
+            full_name: response.data.full_name,
+          })
         );
       } else {
         store.dispatch(loginFailure());
@@ -34,18 +42,21 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
   } else if (register.match(action)) {
     try {
       const { full_name, email, password } = action.payload;
+
+      store.dispatch(loginStart());
+
       const response = await axios.post(`/user/register`, {
-        full_name,
         email,
         password,
+        full_name,
       });
 
       if (response.status === 200) {
         store.dispatch(
           registerSuccess({
-            full_name,
+            full_name: response.data.full_name,
             token: response.data.access_token,
-            email,
+            email: response.data.email,
           })
         );
       } else {

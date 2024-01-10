@@ -1,9 +1,6 @@
 // deliveryDetailsSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface Baggage {
-  // ... (ваш интерфейс Baggage)
-}
+import { Baggage } from "../baggage/baggageListSlice";
 
 interface DeliveryDetails {
   delivery_id: number;
@@ -18,10 +15,12 @@ interface DeliveryDetails {
 
 interface DeliveryDetailsState {
   data: DeliveryDetails | null;
+  flight_number: string | null;
 }
 
 const initialState: DeliveryDetailsState = {
   data: null,
+  flight_number: null,
 };
 
 const deliveryDetailsSlice = createSlice({
@@ -34,8 +33,12 @@ const deliveryDetailsSlice = createSlice({
     ) => {
       state.data = action.payload;
     },
+    setFlightNumber: (state, action: PayloadAction<string | null>) => {
+      state.flight_number = action.payload;
+    },
   },
 });
 
-export const { setDeliveryDetails } = deliveryDetailsSlice.actions;
+export const { setDeliveryDetails, setFlightNumber } =
+  deliveryDetailsSlice.actions;
 export default deliveryDetailsSlice.reducer;

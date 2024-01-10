@@ -57,3 +57,8 @@
 .navLink:focus {
   background: #2980b9;
 }
+.disabledLink {
+  color: #888; /* цвет текста тусклой ссылки */
+  cursor: not-allowed; /* изменение курсора на "not-allowed" */
+  pointer-events: none; /* отключение событий указателя (ссылка становится непереходимой) */
+}

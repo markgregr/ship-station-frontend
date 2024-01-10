@@ -39,10 +39,11 @@ export const addDelivery = createAsyncThunk<void, number>(
   "baggageList/addDelivery",
   async (baggageID, { dispatch }) => {
     try {
-      const response = await axios.post(`/baggage/${baggageID}/delivery`);
+      await axios.post(`/baggage/${baggageID}/delivery`);
       dispatch(setBaggageAdded(baggageID)); // Обновляем список добавленных багажей
     } catch (error) {
       console.error("Error adding delivery:", error);
+      throw error;
     }
   }
 );

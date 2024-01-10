@@ -1,5 +1,5 @@
 // NavbarComponent.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   Container,
@@ -23,12 +23,9 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
   const initialSearchCode =
     typeof searchCodeRedux === "string" ? searchCodeRedux : "";
 
-  const [searchCode, setSearchCodeLocal] = useState<string>(initialSearchCode);
-
-  useEffect(() => {
-    // Обновляем локальный state при изменении searchCode в Redux
-    setSearchCodeLocal(initialSearchCode);
-  }, [initialSearchCode]);
+  const [searchCode, setSearchCodeLocal] = useState<string>(
+    decodeURIComponent(initialSearchCode)
+  );
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,9 +35,10 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
     // Передаем cleanedSearchCode в onSearch
     onSearch(encodedSearchCode);
 
-    // Сохраняем cleanedSearchCode в Redux
+    // Сохраняем searchCode в Redux (без кодирования)
     dispatch(setSearchCode(encodedSearchCode));
   };
+
   const handleShowAllBaggage = () => {
     setSearchCodeLocal("");
 

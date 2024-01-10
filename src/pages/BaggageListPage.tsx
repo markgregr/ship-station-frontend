@@ -11,7 +11,6 @@ import {
   selectSearchCode,
   selectBaggageData,
   selectNoResults,
-  selectDeliveryID,
 } from "../redux/baggage/baggageListSelectors";
 import { selectIsAuthenticated } from "../redux/auth/authSelectors";
 
@@ -21,12 +20,6 @@ const BaggageListPage: React.FC = () => {
   const searchCode = useSelector(selectSearchCode);
   const baggageData = useSelector(selectBaggageData);
   const noResults = useSelector(selectNoResults);
-  const deliveryID = useSelector(selectDeliveryID);
-  const showConstructor = {
-    showConstructorButton: deliveryID > 0,
-    deliveryID,
-  };
-
   useEffect(() => {
     dispatch(getBaggageList(searchCode));
   }, [dispatch, searchCode]);
@@ -34,17 +27,14 @@ const BaggageListPage: React.FC = () => {
   const handleSearch = (code: string) => {
     dispatch(getBaggageList(code));
   };
-
   const [loading, setLoading] = useState<boolean>(false);
-
-  const handleAddDelivery = async (baggageId: number) => {
+  const handleAddDelivery = (baggageId: number) => {
     try {
-      dispatch(getBaggageList(searchCode));
       setLoading(true);
       dispatch(addDelivery(baggageId));
-      console.log(`Delivery added successfully for baggage ${baggageId}`);
+      dispatch(getBaggageList(searchCode));
     } catch (error) {
-      console.error("Error adding delivery", error);
+      console.error("Error handling add delivery:", error);
       dispatch(getBaggageList(searchCode));
     } finally {
       setLoading(false);
@@ -54,10 +44,7 @@ const BaggageListPage: React.FC = () => {
 
   return (
     <div className={styles.body}>
-      <NavigationBar
-        showConstructor={showConstructor}
-        isAuthenticated={isAuthenticated}
-      />
+      <NavigationBar />
       <NavbarComponent onSearch={handleSearch} />
       {noResults ? (
         <div className={styles.pageTitle}>Ничего не найдено</div>

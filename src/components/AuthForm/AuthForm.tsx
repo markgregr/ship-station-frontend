@@ -1,24 +1,42 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom"; // Импортируем useNavigate
+import React, { useState, useEffect } from "react";
+import { Form, Button, Spinner } from "react-bootstrap";
 import styles from "./AuthForm.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface AuthFormProps {
   onLogin: (email: string, password: string) => void;
+  loading: boolean;
+  isAuthenticated: boolean;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
-  const navigate = useNavigate(); // Инициализируем useNavigate
+const AuthForm: React.FC<AuthFormProps> = ({
+  onLogin,
+  loading,
+  isAuthenticated,
+}) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    onLogin(email, password);
-    navigate("/baggage");
+  const handleLogin = async () => {
+    if (loading) {
+      return; // Не выполняем запрос, если loading === true
+    }
+
+    // Выполняем запрос на сервер
+    await onLogin(email, password);
   };
+
   const handleRegister = () => {
     navigate("/register");
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      // Если вход успешен, переходим на /baggage
+      navigate("/baggage");
+    }
+  }, [navigate]);
 
   return (
     <Form className={styles.authForm}>
@@ -49,8 +67,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
         variant="primary"
         onClick={handleLogin}
         className={styles.loginButton}
+        disabled={loading}
       >
-        Вход
+        {loading ? <Spinner animation="border" size="sm" /> : "Вход"}
       </Button>
       <Button onClick={handleRegister} className={styles.loginButton}>
         Регистрация

@@ -5,9 +5,13 @@ import { Card, Col, Container, Row, Button } from "react-bootstrap";
 import styles from "./BaggageList.module.css";
 import { Baggage } from "../../redux/baggage/baggageListSlice";
 import { combineSlices } from "@reduxjs/toolkit";
+import { getBaggageList } from "../../redux/baggage/baggageListThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { selectSearchCode } from "../../redux/baggage/baggageListSelectors";
+import { AppDispatch } from "../../redux/store";
 
 interface BaggageListProps {
-  baggageData: Baggage[] | { baggages: Baggage[] };
+  baggageData: Baggage[] | undefined;
   isDeliveryConstructor: boolean;
   isDeliveryNotDraft: boolean;
   isAuthenticated?: boolean;
@@ -25,6 +29,11 @@ const BaggageList: React.FC<BaggageListProps> = ({
   onRemoveDelivery,
   loading,
 }) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const searchCode = useSelector(selectSearchCode);
+  useEffect(() => {
+    dispatch(getBaggageList(searchCode));
+  }, [dispatch, searchCode]);
   return (
     <Container>
       <Row className={styles.cards}>
@@ -92,3 +101,6 @@ const BaggageList: React.FC<BaggageListProps> = ({
 };
 
 export default BaggageList;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}

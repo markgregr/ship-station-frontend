@@ -10,22 +10,22 @@ import Button from "react-bootstrap/Button"; // Импортируем комп�
 import logo from "../../../public/BagTracker.png";
 import styles from "./NavigationBar.module.css";
 import { logout } from "../../redux/auth/authSlice.ts"; // Импортируем экшен для выхода
+import {
+  selectIsAuthenticated,
+  selectfull_name,
+} from "../../redux/auth/authSelectors.ts";
+import { selectDeliveryID } from "../../redux/baggage/baggageListSelectors.ts";
 
-interface NavigationBarProps {
-  showConstructor: {
-    showConstructorButton: boolean;
-    deliveryID: number;
-  };
-  isAuthenticated: boolean;
-}
-
-const NavigationBar: React.FC<NavigationBarProps> = ({
-  showConstructor,
-  isAuthenticated,
-}) => {
+const NavigationBar: React.FC = () => {
   const dispatch = useDispatch(); // Получаем функцию dispatch из хука useDispatch
   const navigate = useNavigate();
-
+  const full_name = useSelector(selectfull_name);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const deliveryID = useSelector(selectDeliveryID);
+  const showConstructor = {
+    showConstructorButton: deliveryID > 0,
+    deliveryID,
+  };
   const handleLogout = () => {
     dispatch(logout()); // Диспатчим экшен для выхода
     navigate("/auth");
@@ -39,6 +39,9 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
             <Image src={logo} alt="Logo" className={styles.logo} />
             BagTracker
           </Navbar.Brand>
+          <Navbar.Brand className={styles.navbarBrand}>
+            {full_name}
+          </Navbar.Brand>
           <Nav className={styles.nav}>
             {isAuthenticated && (
               <>
@@ -48,15 +51,19 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
                 <Nav.Link as={Link} to="/delivery" className={styles.navLink}>
                   Мои заявки
                 </Nav.Link>
-                {showConstructor.showConstructorButton && (
-                  <Nav.Link
-                    as={Link}
-                    to={`/delivery/${showConstructor.deliveryID}`}
-                    className={styles.navLink}
-                  >
-                    Конструктор заявки
-                  </Nav.Link>
-                )}
+                <Nav.Link
+                  as={Link}
+                  to={`/delivery/${showConstructor.deliveryID}`}
+                  disabled={!showConstructor.showConstructorButton}
+                  className={`${styles.navLink} ${
+                    !showConstructor.showConstructorButton
+                      ? styles.disabledLink
+                      : ""
+                  }`}
+                >
+                  Конструктор заявки
+                </Nav.Link>
+
                 <Button
                   variant="danger"
                   onClick={handleLogout}
