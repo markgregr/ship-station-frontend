@@ -8,6 +8,7 @@ import {
   Baggage,
   setBaggageAdded,
   setRemoveBaggage,
+  loadingStart,
 } from "./baggageListSlice";
 
 interface GetBaggagesRepsonse {
@@ -19,10 +20,10 @@ export const getBaggageList = createAsyncThunk<GetBaggagesRepsonse, string>(
   "baggageList/getBaggageList",
   async (searchCode, { dispatch }) => {
     try {
+      dispatch(loadingStart());
       const response = await axios.get<GetBaggagesRepsonse>(
         `/baggage/?searchCode=${searchCode}`
       );
-
       dispatch(setNoResults(false));
       dispatch(setBaggageData(response.data.baggages));
       dispatch(setDeliveryID(response.data.deliveryID));
@@ -39,8 +40,12 @@ export const addDelivery = createAsyncThunk<void, number>(
   "baggageList/addDelivery",
   async (baggageID, { dispatch }) => {
     try {
-      await axios.post(`/baggage/${baggageID}/delivery`);
-      dispatch(setBaggageAdded(baggageID)); // Обновляем список добавленных багажей
+      dispatch(loadingStart()); // Начало загрузки
+
+      const response = await axios.post(`/baggage/${baggageID}/delivery`);
+      dispatch(setBaggageData(response.data.baggages));
+      dispatch(setDeliveryID(response.data.deliveryID));
+      dispatch(setBaggageAdded(baggageID));
     } catch (error) {
       console.error("Error adding delivery:", error);
       throw error;
@@ -52,7 +57,8 @@ export const deleteDelivery = createAsyncThunk<void, number>(
   "baggageList/deleteDelivery",
   async (baggageID, { dispatch }) => {
     try {
-      await axios.delete(`/baggage/${baggageID}/delivery/delete`);
+      dispatch(loadingStart()); // Начало загрузки
+      await axios.delete(`/baggage/${baggageID}/delivery`);
       dispatch(setRemoveBaggage(baggageID)); // Обновляем список багажей после удаления доставки
     } catch (error) {
       console.error("Error deleting delivery:", error);

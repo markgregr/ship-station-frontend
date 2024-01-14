@@ -1,0 +1,52 @@
+/* AlertComponent.module.css */
+.visible {
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.alert {
+  min-height: 67px;
+  width: 560px;
+  max-width: 90%;
+  border-radius: 12px;
+  padding: 16px 22px 17px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.alert .icon__wrapper {
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.253);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert .icon__wrapper span {
+  font-size: 21px;
+}
+
+.alert p {
+  margin-left: 10px;
+}
+
+.alert .open {
+  margin-left: auto;
+  margin-right: 5px;
+}
+
+.alert .close {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.alert .close:hover {
+  transform: scale(1.3);
+}

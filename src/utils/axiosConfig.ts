@@ -1,5 +1,5 @@
 // utils/axiosConfig.js
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const instance = axios.create({
   baseURL: "/api", // ваш базовый URL API
@@ -21,5 +21,9 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+// Функция для проверки, является ли объект AxiosError
+export function isAxiosError(error: any): error is AxiosError {
+  return error.isAxiosError === true;
+}
 
 export default instance;

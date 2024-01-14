@@ -1,14 +1,9 @@
 // BaggageList.tsx
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Col, Container, Row, Button } from "react-bootstrap";
 import styles from "./BaggageList.module.css";
 import { Baggage } from "../../redux/baggage/baggageListSlice";
-import { combineSlices } from "@reduxjs/toolkit";
-import { getBaggageList } from "../../redux/baggage/baggageListThunk";
-import { useDispatch, useSelector } from "react-redux";
-import { selectSearchCode } from "../../redux/baggage/baggageListSelectors";
-import { AppDispatch } from "../../redux/store";
 
 interface BaggageListProps {
   baggageData: Baggage[] | undefined;
@@ -17,7 +12,6 @@ interface BaggageListProps {
   isAuthenticated?: boolean;
   onAddDelivery?: (baggageId: number) => void;
   onRemoveDelivery?: (baggageId: number) => void;
-  loading?: boolean;
 }
 
 const BaggageList: React.FC<BaggageListProps> = ({
@@ -27,13 +21,7 @@ const BaggageList: React.FC<BaggageListProps> = ({
   isAuthenticated,
   onAddDelivery,
   onRemoveDelivery,
-  loading,
 }) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const searchCode = useSelector(selectSearchCode);
-  useEffect(() => {
-    dispatch(getBaggageList(searchCode));
-  }, [dispatch, searchCode]);
   return (
     <Container>
       <Row className={styles.cards}>
@@ -71,9 +59,8 @@ const BaggageList: React.FC<BaggageListProps> = ({
                         onClick={() =>
                           onAddDelivery && onAddDelivery(item.baggage_id)
                         }
-                        disabled={loading}
                       >
-                        {loading ? "Добавление..." : "Добавить багаж"}
+                        Добавить багаж
                       </Button>
                     )}
                   {isDeliveryConstructor && !isDeliveryNotDraft && (
@@ -83,9 +70,8 @@ const BaggageList: React.FC<BaggageListProps> = ({
                       onClick={() =>
                         onRemoveDelivery && onRemoveDelivery(item.baggage_id)
                       }
-                      disabled={loading}
                     >
-                      {loading ? "Удаление..." : "Удалить багаж"}
+                      Удалить багаж
                     </Button>
                   )}
                 </Card.Body>
@@ -93,7 +79,9 @@ const BaggageList: React.FC<BaggageListProps> = ({
             </Col>
           ))
         ) : (
-          <div>No baggage data available</div>
+          <Card.Text className={styles.cardsText}>
+            Нет доступных багажей
+          </Card.Text>
         )}
       </Row>
     </Container>
@@ -101,6 +89,3 @@ const BaggageList: React.FC<BaggageListProps> = ({
 };
 
 export default BaggageList;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}

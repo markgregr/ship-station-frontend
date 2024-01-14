@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { selectDeliveryDetails } from "../../redux/delivery/deliveryDetailsSelectors";
+import {
+  selectDeliveryDetails,
+  selectError,
+} from "../../redux/delivery/deliveryDetailsSelectors";
 import { selectDeliveryID } from "../../redux/baggage/baggageListSelectors";
 import { AppDispatch } from "../../redux/store";
 import {
@@ -12,6 +15,7 @@ import {
 } from "../../redux/delivery/deliveryDetailsThunk";
 import { Button, Container, FormControl, Navbar } from "react-bootstrap";
 import styles from "./NavbarDeliveryDetails.module.css";
+import ErrorAlert from "../Alert/ErrorAlert";
 
 //NavbarDeliveryDetails.tsx
 const NavbarDeliveryDetails: React.FC = () => {
@@ -19,6 +23,7 @@ const NavbarDeliveryDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const delivery = useSelector(selectDeliveryDetails);
   const deliveryID = useSelector(selectDeliveryID);
+  const error = useSelector(selectError);
   const [loading, setLoading] = useState<boolean>(false);
   const [flight_number, setFlightNumber] = useState("");
   const [updateStatus, setUpdateStatus] = useState<string | null>(null);
@@ -41,13 +46,11 @@ const NavbarDeliveryDetails: React.FC = () => {
     try {
       setLoading(true);
       await dispatch(deleteDraftDelivery(String(id)));
-      console.log(`Delivery cleared successfully for id ${id}`);
       navigate("/baggage");
     } catch (error) {
       console.error("Error clearing delivery", error);
     } finally {
       setLoading(false);
-      // Очистка определенного диспатча (замените YOUR_DISPATCH_ACTION на ваш реальный тип действия)
       dispatch({ type: "setDeliveryDetails", payload: null });
     }
   };

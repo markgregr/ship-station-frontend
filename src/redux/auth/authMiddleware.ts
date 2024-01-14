@@ -6,7 +6,7 @@ import {
   loginFailure,
   logoutSuccess,
   registerSuccess,
-  loginStart,
+  loadingStart,
 } from "./authSlice";
 import axios from "../../utils/axiosConfig";
 
@@ -15,7 +15,7 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
     try {
       const { email, password } = action.payload;
 
-      store.dispatch(loginStart());
+      store.dispatch(loadingStart());
 
       const response = await axios.post(`/user/login`, {
         email,
@@ -38,12 +38,26 @@ const authMiddleware: Middleware = (store) => (next) => async (action) => {
       store.dispatch(loginFailure());
     }
   } else if (logout.match(action)) {
-    store.dispatch(logoutSuccess());
+    try {
+      store.dispatch(loadingStart());
+      const response = await axios.post(`/user/logout`);
+      if (response.status === 200) {
+        console.log(200);
+        store.dispatch(logoutSuccess());
+      } else if (response.status === 401) {
+        console.log(401);
+        localStorage.removeItem("authState");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+      console.log(401);
+      localStorage.removeItem("authState");
+    }
   } else if (register.match(action)) {
     try {
       const { full_name, email, password } = action.payload;
 
-      store.dispatch(loginStart());
+      store.dispatch(loadingStart());
 
       const response = await axios.post(`/user/register`, {
         email,

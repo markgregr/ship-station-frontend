@@ -40,7 +40,7 @@ const authSlice = createSlice({
       state.full_name = action.payload.full_name;
       localStorage.setItem("authState", JSON.stringify(state));
     },
-    loginStart: (state) => {
+    loadingStart: (state) => {
       state.loading = true;
     },
     loginFailure: (state) => {
@@ -53,13 +53,7 @@ const authSlice = createSlice({
     },
     logoutSuccess: (state) => {
       state.isAuthenticated = false;
-      state.token = null;
-      state.email = null;
-      state.full_name = null;
-      localStorage.removeItem("authState");
-    },
-    logout: (state) => {
-      state.isAuthenticated = false;
+      state.loading = false;
       state.token = null;
       state.email = null;
       state.full_name = null;
@@ -82,14 +76,9 @@ const authSlice = createSlice({
 
 export const {
   loginSuccess,
-  loginStart,
+  loadingStart,
   loginFailure,
   logoutSuccess,
-  logout,
   registerSuccess,
 } = authSlice.actions;
 export default authSlice.reducer;
-
-export const logoutAsync = () => (dispatch: any) => {
-  dispatch(logout());
-};

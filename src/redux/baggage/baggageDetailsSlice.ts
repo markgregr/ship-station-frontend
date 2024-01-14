@@ -16,10 +16,12 @@ export interface BaggageDetails {
 
 interface BaggageDetailsState {
   data: BaggageDetails | null;
+  loading: boolean;
 }
 
 const initialState: BaggageDetailsState = {
   data: null,
+  loading: false,
 };
 
 const baggageDetailsSlice = createSlice({
@@ -31,11 +33,15 @@ const baggageDetailsSlice = createSlice({
       action: PayloadAction<BaggageDetails | null>
     ) => {
       state.data = action.payload;
+      state.loading = false;
+    },
+    loadingStart: (state) => {
+      state.loading = true;
     },
   },
 });
 
-export const { setBaggageDetails } = baggageDetailsSlice.actions;
+export const { setBaggageDetails, loadingStart } = baggageDetailsSlice.actions;
 export default baggageDetailsSlice.reducer;
 
 // baggageDetailsActions.ts (если необходимо)

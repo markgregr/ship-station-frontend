@@ -1,7 +1,7 @@
 // deliveryListThunk.ts
 import { createAsyncThunk, ThunkDispatch } from "@reduxjs/toolkit";
 import axios from "../../utils/axiosConfig";
-import { setDeliveries, setNoResults } from "./deliveryListSlice";
+import { loadingStart, setDeliveries, setNoResults } from "./deliveryListSlice";
 import { RootState } from "../store";
 
 interface GetDeliveriesParams {
@@ -17,6 +17,7 @@ export const getDeliveries = createAsyncThunk<
   { state: RootState; dispatch: ThunkDispatch<RootState, any, any> }
 >("delivery/getDeliveries", async (params, { dispatch }) => {
   try {
+    dispatch(loadingStart());
     const response = await axios.get("/delivery/", { params });
     dispatch(setNoResults(false));
     dispatch(setDeliveries(response.data.deliveries));

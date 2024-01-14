@@ -10,3 +10,4 @@ export const selectNoResults = (state: RootState) =>
 export const selectDeliveryID = (state: RootState) =>
   state.baggageList.deliveryID;
 export const selectBaggageAdded = (state: RootState) => state.baggageList.added;
+export const selectloading = (state: RootState) => state.baggageList.loading;

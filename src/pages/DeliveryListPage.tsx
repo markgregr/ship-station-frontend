@@ -1,7 +1,7 @@
 // DeliveryListPage.tsx
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../redux/store";
+import { AppDispatch } from "../redux/store";
 import { getDeliveries } from "../redux/delivery/deliveryListThunk";
 import { Container } from "react-bootstrap";
 import DeliveryTable from "../components/DeliveryTable/DeliveryTable";
@@ -13,24 +13,18 @@ import {
   selectDeliveryStatus,
   selectSearchFlightNumber,
   selectDeliveries,
+  selectloading,
 } from "../redux/delivery/deliveryListSelectors";
-import NavbarDelivery from "../components/NavbarDelivery/NavbarDelivery";
-import { selectDeliveryID } from "../redux/baggage/baggageListSelectors";
-import { selectIsAuthenticated } from "../redux/auth/authSelectors";
+import { Spin } from "antd";
 
 const DeliveryListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
   const startFormationDate = useSelector(selectStartFormationDate);
   const endFormationDate = useSelector(selectEndFormationDate);
   const deliveryStatus = useSelector(selectDeliveryStatus);
   const searchFlightNumber = useSelector(selectSearchFlightNumber);
   const deliveries = useSelector(selectDeliveries);
-  const deliveryID = useSelector(selectDeliveryID);
-  const showConstructor = {
-    showConstructorButton: deliveryID > 0,
-    deliveryID,
-  };
+  const loading = useSelector(selectloading);
   const filteredDeliveries = deliveries.filter(
     (deliveries) => deliveries.delivery_status !== "черновик"
   );
@@ -54,14 +48,16 @@ const DeliveryListPage: React.FC = () => {
 
   return (
     <Container>
-      <NavigationBar
-        showConstructor={showConstructor}
-        isAuthenticated={isAuthenticated}
-      />
-      {/* <NavbarDelivery /> */}
-      <section className={styles.section}>
-        <DeliveryTable delivery={filteredDeliveries} />
-      </section>
+      <NavigationBar />
+      {loading ? (
+        <div style={{ textAlign: "center", marginTop: "50px" }}>
+          <Spin size="large" />
+        </div>
+      ) : (
+        <section className={styles.section}>
+          <DeliveryTable delivery={filteredDeliveries} />
+        </section>
+      )}
     </Container>
   );
 };

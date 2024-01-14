@@ -5,7 +5,10 @@ import AuthForm from "../components/AuthForm/AuthForm";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { AppDispatch, RootState } from "../redux/store";
 import { login } from "../redux/auth/authActions";
-import { selectIsAuthenticated } from "../redux/auth/authSelectors";
+import {
+  selectIsAuthenticated,
+  selectloading,
+} from "../redux/auth/authSelectors";
 import { Spin } from "antd"; // Подключаем компонент Spin
 
 const AuthPage: React.FC = () => {
@@ -13,7 +16,7 @@ const AuthPage: React.FC = () => {
   const isAuthenticated = useSelector((state: RootState) =>
     selectIsAuthenticated(state)
   );
-  const loading = useSelector((state: RootState) => state.auth.loading);
+  const loading = useSelector(selectloading);
   const handleLogin = (email: string, password: string) => {
     dispatch(login({ email, password }));
   };
@@ -27,12 +30,7 @@ const AuthPage: React.FC = () => {
           <Spin size="large" />
         </div>
       ) : (
-        // Иначе отображаем форму входа
-        <AuthForm
-          onLogin={handleLogin}
-          loading={loading}
-          isAuthenticated={isAuthenticated}
-        />
+        <AuthForm onLogin={handleLogin} isAuthenticated={isAuthenticated} />
       )}
     </div>
   );
