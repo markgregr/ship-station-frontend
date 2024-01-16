@@ -1,5 +1,5 @@
 // utils/axiosConfig.js
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 const instance = axios.create({
   baseURL: "/api", // ваш базовый URL API
@@ -11,7 +11,7 @@ instance.interceptors.request.use(
     const authState = authStateString ? JSON.parse(authStateString) : null;
     const token =
       authState && typeof authState === "object" ? authState.token : null;
-
+    console.log(token);
     if (token) {
       config.headers.Authorization = `${token}`;
     }
@@ -21,9 +21,5 @@ instance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-// Функция для проверки, является ли объект AxiosError
-export function isAxiosError(error: any): error is AxiosError {
-  return error.isAxiosError === true;
-}
 
 export default instance;

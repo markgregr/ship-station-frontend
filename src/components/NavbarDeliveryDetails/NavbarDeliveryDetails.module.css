@@ -39,3 +39,8 @@
   display: flex;
   align-items: center; /* Центрируем элементы по вертикали */
 }
+.disabledLink {
+  color: #888; /* цвет текста тусклой ссылки */
+  cursor: not-allowed; /* изменение курсора на "not-allowed" */
+  pointer-events: none; /* отключение событий указателя (ссылка становится непереходимой) */
+}

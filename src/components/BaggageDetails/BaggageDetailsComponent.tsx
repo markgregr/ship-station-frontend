@@ -11,8 +11,6 @@ interface BaggageDetailsComponentProps {
 const BaggageDetailsComponent: React.FC<BaggageDetailsComponentProps> = ({
   baggageDetails,
 }) => {
-  console.log(baggageDetails);
-
   if (!baggageDetails || !baggageDetails.baggage) {
     return <div>No baggage details available.</div>;
   }

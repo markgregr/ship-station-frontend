@@ -1,4 +1,4 @@
-// store.ts
+//store.ts;
 import { configureStore } from "@reduxjs/toolkit";
 import authMiddleware from "./auth/authMiddleware";
 import authReducer from "./auth/authSlice";
@@ -6,7 +6,7 @@ import baggageListReducer from "./baggage/baggageListSlice";
 import baggageDetailsReducer from "./baggage/baggageDetailsSlice";
 import deliveryListReducer from "./delivery/deliveryListSlice";
 import deliveryDetailsReducer from "./delivery/deliveryDetailsSlice";
-
+import additionalReducer from "./additional/additionalSlice";
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -14,6 +14,7 @@ const store = configureStore({
     baggageDetails: baggageDetailsReducer,
     deliveryList: deliveryListReducer,
     deliveryDetails: deliveryDetailsReducer,
+    additional: additionalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

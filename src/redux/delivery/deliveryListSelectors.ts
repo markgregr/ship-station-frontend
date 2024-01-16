@@ -10,10 +10,8 @@ export const selectEndFormationDate = (state: RootState) =>
 export const selectDeliveryStatus = (state: RootState) =>
   state.deliveryList.deliveryStatus;
 
-export const selectSearchFlightNumber = (state: RootState) =>
+export const selectsearchFlightNumber = (state: RootState) =>
   state.deliveryList.searchFlightNumber;
 
 export const selectDeliveries = (state: RootState) =>
   state.deliveryList.deliveries;
-
-export const selectloading = (state: RootState) => state.deliveryList.loading;

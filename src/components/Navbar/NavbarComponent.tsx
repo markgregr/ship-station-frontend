@@ -10,8 +10,8 @@ import {
 } from "react-bootstrap";
 import styles from "./NavbarComponent.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSearchCode } from "../../redux/baggage/baggageListSelectors";
-import { setSearchCode } from "../../redux/baggage/baggageListSlice";
+import { selectsearchCode } from "../../redux/baggage/baggageListSelectors";
+import { setsearchCode } from "../../redux/baggage/baggageListSlice";
 
 interface NavbarComponentProps {
   onSearch: (searchCode: string) => void;
@@ -19,34 +19,34 @@ interface NavbarComponentProps {
 
 const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
   const dispatch = useDispatch();
-  const searchCodeRedux = useSelector(selectSearchCode);
-  const initialSearchCode =
+  const searchCodeRedux = useSelector(selectsearchCode);
+  const initialsearchCode =
     typeof searchCodeRedux === "string" ? searchCodeRedux : "";
 
-  const [searchCode, setSearchCodeLocal] = useState<string>(
-    decodeURIComponent(initialSearchCode)
+  const [searchCode, setsearchCodeLocal] = useState<string>(
+    decodeURIComponent(initialsearchCode)
   );
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const encodedSearchCode = encodeURIComponent(searchCode);
+    const encodedsearchCode = encodeURIComponent(searchCode);
 
-    // Передаем cleanedSearchCode в onSearch
-    onSearch(encodedSearchCode);
+    // Передаем cleanedsearchCode в onSearch
+    onSearch(encodedsearchCode);
 
     // Сохраняем searchCode в Redux (без кодирования)
-    dispatch(setSearchCode(encodedSearchCode));
+    dispatch(setsearchCode(encodedsearchCode));
   };
 
   const handleShowAllBaggage = () => {
-    setSearchCodeLocal("");
+    setsearchCodeLocal("");
 
     // Передаем пустую строку в onSearch
     onSearch("");
 
     // Сохраняем пустую строку в Redux и localStorage
-    dispatch(setSearchCode(""));
+    dispatch(setsearchCode(""));
   };
 
   return (
@@ -66,7 +66,7 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
               className={styles.searchInput}
               aria-label="Поиск"
               value={searchCode}
-              onChange={(e) => setSearchCodeLocal(e.target.value)}
+              onChange={(e) => setsearchCodeLocal(e.target.value)}
             />
             <Button
               variant="outline-success"

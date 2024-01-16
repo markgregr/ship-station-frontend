@@ -1,7 +1,9 @@
 // baggageDetailsThunk.ts
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axiosConfig";
-import { loadingStart, setBaggageDetails } from "./baggageDetailsSlice";
+import { setBaggageDetails } from "./baggageDetailsSlice";
+import { handleError } from "../../utils/notificationConfig";
+import { loading } from "../additional/additionalSlice";
 
 interface BaggageDetailsResponse {
   airline: string;
@@ -18,25 +20,19 @@ interface BaggageDetailsResponse {
 
 export const getBaggageDetails = createAsyncThunk<
   BaggageDetailsResponse,
-  string,
-  {
-    rejectValue: string; // Тип для значения отклоненной промисса
+  string
+>("baggageDetails/getBaggageDetails", async (id, { dispatch }) => {
+  try {
+    const timer = setTimeout(() => {
+      dispatch(loading(true));
+    }, 250);
+    const response = await axios.get<BaggageDetailsResponse>(`/baggage/${id}`);
+    dispatch(loading(false));
+    clearTimeout(timer);
+    dispatch(setBaggageDetails(response.data));
+    return response.data;
+  } catch (error) {
+    handleError(error, dispatch);
+    throw error;
   }
->(
-  "baggageDetails/getBaggageDetails",
-  async (id, { dispatch, rejectWithValue }) => {
-    try {
-      dispatch(loadingStart());
-      const response = await axios.get<BaggageDetailsResponse>(
-        `/baggage/${id}`
-      );
-
-      dispatch(setBaggageDetails(response.data));
-
-      return response.data;
-    } catch (error) {
-      // Обработка ошибок при загрузке деталей багажа
-      return rejectWithValue("Ошибка при загрузке деталей багажа");
-    }
-  }
-);
+});

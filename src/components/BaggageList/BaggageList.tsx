@@ -50,30 +50,32 @@ const BaggageList: React.FC<BaggageListProps> = ({
                       Тип: {item.baggage_type}
                     </Card.Text>
                   </Link>
-                  {isAuthenticated &&
-                    !isDeliveryConstructor &&
-                    !isDeliveryNotDraft && (
+                  <div className={styles.buttonsContainer}>
+                    {isAuthenticated &&
+                      !isDeliveryConstructor &&
+                      !isDeliveryNotDraft && (
+                        <Button
+                          variant="success"
+                          className={styles.btn}
+                          onClick={() =>
+                            onAddDelivery && onAddDelivery(item.baggage_id)
+                          }
+                        >
+                          Добавить багаж
+                        </Button>
+                      )}
+                    {isDeliveryConstructor && !isDeliveryNotDraft && (
                       <Button
-                        variant="success"
+                        variant="danger"
                         className={styles.btn}
                         onClick={() =>
-                          onAddDelivery && onAddDelivery(item.baggage_id)
+                          onRemoveDelivery && onRemoveDelivery(item.baggage_id)
                         }
                       >
-                        Добавить багаж
+                        Удалить багаж
                       </Button>
                     )}
-                  {isDeliveryConstructor && !isDeliveryNotDraft && (
-                    <Button
-                      variant="danger"
-                      className={styles.btn}
-                      onClick={() =>
-                        onRemoveDelivery && onRemoveDelivery(item.baggage_id)
-                      }
-                    >
-                      Удалить багаж
-                    </Button>
-                  )}
+                  </div>
                 </Card.Body>
               </Card>
             </Col>

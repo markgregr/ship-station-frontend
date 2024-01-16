@@ -1,5 +1,5 @@
 // DeliveryListPage.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import { getDeliveries } from "../redux/delivery/deliveryListThunk";
@@ -11,26 +11,26 @@ import {
   selectStartFormationDate,
   selectEndFormationDate,
   selectDeliveryStatus,
-  selectSearchFlightNumber,
+  selectsearchFlightNumber,
   selectDeliveries,
-  selectloading,
 } from "../redux/delivery/deliveryListSelectors";
 import { Spin } from "antd";
+import { selectLoading } from "../redux/additional/additionalSelectors";
+import NavbarDelivery from "../components/NavbarDelivery/NavbarDelivery";
 
 const DeliveryListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const startFormationDate = useSelector(selectStartFormationDate);
   const endFormationDate = useSelector(selectEndFormationDate);
   const deliveryStatus = useSelector(selectDeliveryStatus);
-  const searchFlightNumber = useSelector(selectSearchFlightNumber);
+  const searchFlightNumber = useSelector(selectsearchFlightNumber);
   const deliveries = useSelector(selectDeliveries);
-  const loading = useSelector(selectloading);
-  const filteredDeliveries = deliveries.filter(
-    (deliveries) => deliveries.delivery_status !== "черновик"
-  );
-  useEffect(() => {
-    // Используем параметры для выполнения запроса
-    dispatch(
+  const loading = useSelector(selectLoading);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const fetchData = async () => {
+    setIsFetching(true);
+    await dispatch(
       getDeliveries({
         startFormationDate,
         endFormationDate,
@@ -38,6 +38,14 @@ const DeliveryListPage: React.FC = () => {
         searchFlightNumber,
       })
     );
+    setIsFetching(false);
+  };
+
+  useEffect(() => {
+    const fetchInterval = setInterval(() => {
+      fetchData();
+    }, 150);
+    return () => clearInterval(fetchInterval);
   }, [
     dispatch,
     startFormationDate,
@@ -45,17 +53,17 @@ const DeliveryListPage: React.FC = () => {
     deliveryStatus,
     searchFlightNumber,
   ]);
-
   return (
     <Container>
       <NavigationBar />
+      <NavbarDelivery />
       {loading ? (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
           <Spin size="large" />
         </div>
       ) : (
         <section className={styles.section}>
-          <DeliveryTable delivery={filteredDeliveries} />
+          <DeliveryTable delivery={deliveries} />
         </section>
       )}
     </Container>

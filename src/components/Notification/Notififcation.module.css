@@ -1,0 +1,39 @@
+.error,
+.success {
+  color: white;
+  padding: 15px;
+  width: 300px;
+  text-align: center;
+  position: relative;
+  font-family: "EuclidFlex Bold", sans-serif; /* Установка шрифта */
+  font-size: 18px; /* Размер шрифта */
+  border-radius: 5px;
+  animation: slideIn 0.3s ease-in-out forwards;
+}
+
+.error {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+.success {
+  background-color: rgba(0, 128, 0, 0.4);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(150px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

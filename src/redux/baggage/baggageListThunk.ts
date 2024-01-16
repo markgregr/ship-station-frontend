@@ -2,14 +2,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../utils/axiosConfig";
 import {
-  setNoResults,
   setBaggageData,
   setDeliveryID,
   Baggage,
-  setBaggageAdded,
   setRemoveBaggage,
-  loadingStart,
 } from "./baggageListSlice";
+import { handleError, handleSuccess } from "../../utils/notificationConfig";
+import { loading } from "../additional/additionalSlice";
 
 interface GetBaggagesRepsonse {
   baggages: Baggage[];
@@ -19,19 +18,22 @@ interface GetBaggagesRepsonse {
 export const getBaggageList = createAsyncThunk<GetBaggagesRepsonse, string>(
   "baggageList/getBaggageList",
   async (searchCode, { dispatch }) => {
+    let timer;
     try {
-      dispatch(loadingStart());
+      timer = setTimeout(() => {
+        dispatch(loading(true));
+      }, 250);
       const response = await axios.get<GetBaggagesRepsonse>(
         `/baggage/?searchCode=${searchCode}`
       );
-      dispatch(setNoResults(false));
       dispatch(setBaggageData(response.data.baggages));
       dispatch(setDeliveryID(response.data.deliveryID));
-
       return response.data;
     } catch (error) {
-      dispatch(setNoResults(true));
+      handleError(error, dispatch);
       return { baggages: [], deliveryID: 0 };
+    } finally {
+      clearTimeout(timer);
     }
   }
 );
@@ -39,16 +41,20 @@ export const getBaggageList = createAsyncThunk<GetBaggagesRepsonse, string>(
 export const addDelivery = createAsyncThunk<void, number>(
   "baggageList/addDelivery",
   async (baggageID, { dispatch }) => {
+    let timer;
     try {
-      dispatch(loadingStart()); // Начало загрузки
-
+      timer = setTimeout(() => {
+        dispatch(loading(true));
+      }, 250);
       const response = await axios.post(`/baggage/${baggageID}/delivery`);
       dispatch(setBaggageData(response.data.baggages));
       dispatch(setDeliveryID(response.data.deliveryID));
-      dispatch(setBaggageAdded(baggageID));
-    } catch (error) {
-      console.error("Error adding delivery:", error);
+      handleSuccess(response, dispatch);
+    } catch (error: any) {
+      handleError(error, dispatch);
       throw error;
+    } finally {
+      clearTimeout(timer);
     }
   }
 );
@@ -56,12 +62,18 @@ export const addDelivery = createAsyncThunk<void, number>(
 export const deleteDelivery = createAsyncThunk<void, number>(
   "baggageList/deleteDelivery",
   async (baggageID, { dispatch }) => {
+    let timer;
     try {
-      dispatch(loadingStart()); // Начало загрузки
-      await axios.delete(`/baggage/${baggageID}/delivery`);
-      dispatch(setRemoveBaggage(baggageID)); // Обновляем список багажей после удаления доставки
+      timer = setTimeout(() => {
+        dispatch(loading(true));
+      }, 250);
+      const response = await axios.delete(`/baggage/${baggageID}/delivery`);
+      dispatch(setRemoveBaggage(baggageID));
+      handleSuccess(response, dispatch);
     } catch (error) {
-      console.error("Error deleting delivery:", error);
+      handleError(error, dispatch);
+    } finally {
+      clearTimeout(timer);
     }
   }
 );

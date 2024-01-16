@@ -1,135 +1,139 @@
-// NavbarDelivery.tsx
-import React, { useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Navbar,
   Container,
-  Nav,
   Form,
   FormControl,
-  Button,
   Dropdown,
 } from "react-bootstrap";
-import styles from "./NavbarDelivery.module.css"; // Импортируем стили
-import { useDispatch } from "react-redux";
+import styles from "./NavbarDelivery.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  setSearchFlightNumber,
+  setsearchFlightNumber,
   setStartFormationDate,
   setEndFormationDate,
   setDeliveryStatus,
 } from "../../redux/delivery/deliveryListSlice";
+import debounce from "lodash/debounce";
+import {
+  selectDeliveryStatus,
+  selectEndFormationDate,
+  selectStartFormationDate,
+  selectsearchFlightNumber,
+} from "../../redux/delivery/deliveryListSelectors";
 
 interface NavbarDeliveryProps {}
 
 const NavbarDelivery: React.FC<NavbarDeliveryProps> = () => {
   const dispatch = useDispatch();
 
-  const [flightNumber, setFlightNumber] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
-  const [status, setStatus] = useState<string | null>(null);
+  // Используем селекторы из редакса
+  const flightNumber = useSelector(selectsearchFlightNumber);
+  const startDate = useSelector(selectStartFormationDate);
+  const endDate = useSelector(selectEndFormationDate);
+  const status = useSelector(selectDeliveryStatus);
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const inputRef = useRef<string | null>(null);
 
-    // Сохраняем параметры в Redux
-    dispatch(setSearchFlightNumber(flightNumber));
-    dispatch(setStartFormationDate(startDate));
-    dispatch(setEndFormationDate(endDate));
-    dispatch(setDeliveryStatus(status));
+  const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newStartDate = e.target.value;
+    dispatch(setStartFormationDate(newStartDate || null));
   };
 
-  const handleShowAllDeliveries = () => {
-    // Очищаем параметры в Redux
-    setFlightNumber("");
-    setStartDate("");
-    setEndDate("");
-    setStatus(null);
+  const handleEndDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEndDate = e.target.value;
+    dispatch(setEndFormationDate(newEndDate || null));
+  };
 
-    dispatch(setSearchFlightNumber(""));
-    dispatch(setStartFormationDate(""));
-    dispatch(setEndFormationDate(""));
-    dispatch(setDeliveryStatus(null));
+  const handleStatusChange = (selectedStatus: string) => {
+    if (selectedStatus === "Выберите статус") {
+      dispatch(setDeliveryStatus(null));
+    } else {
+      dispatch(setDeliveryStatus(selectedStatus));
+    }
+  };
+
+  const handleSearch = debounce(() => {
+    const currentValue = inputRef.current;
+    if (currentValue && currentValue.trim() !== "") {
+      dispatch(setsearchFlightNumber(currentValue.trim()));
+    }
+  }, 200);
+
+  useEffect(() => {
+    handleSearch();
+  }, [flightNumber, startDate, endDate, status]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    inputRef.current = e.target.value;
+    handleSearch();
+  };
+
+  const handleClearSearch = () => {
+    dispatch(setsearchFlightNumber(""));
   };
 
   return (
     <Navbar className={styles.navbar}>
       <Container>
-        <Navbar.Toggle className={styles.toggleButton} />
-        <Navbar.Collapse className={styles.collapse}>
-          <Nav className={styles.nav}>
-            <Nav.Link
-              className={styles.navLink}
-              onClick={handleShowAllDeliveries}
+        <Form className={styles.form}>
+          <FormControl
+            type="text"
+            placeholder="Номер рейса"
+            className={`${styles.searchInput} ${styles.datePicker}`}
+            value={flightNumber || ""}
+            onChange={handleInputChange}
+            onInput={(e) => {
+              if (!e.currentTarget.value.trim()) {
+                handleClearSearch();
+              }
+            }}
+          />
+          <FormControl
+            type="date"
+            placeholder="Дата начала"
+            className={`${styles.searchInput} ${styles.datePicker}`}
+            value={startDate || ""}
+            onChange={handleStartDateChange}
+          />
+          <FormControl
+            type="date"
+            placeholder="Дата конца"
+            className={`${styles.searchInput} ${styles.datePicker}`}
+            value={endDate || ""}
+            onChange={handleEndDateChange}
+          />
+          <Dropdown className={styles.dropdown}>
+            <Dropdown.Toggle
+              variant="outline-secondary"
+              id="dropdown-basic"
+              className={styles.dropdownToggle}
             >
-              Все доставки
-            </Nav.Link>
-          </Nav>
-          <Form className={styles.form} onSubmit={handleSearch}>
-            <FormControl
-              type="text"
-              placeholder="Номер рейса"
-              className={`${styles.searchInput} ${styles.datePicker}`} // Применяем стили
-              value={flightNumber}
-              onChange={(e) => setFlightNumber(e.target.value)}
-            />
-            <FormControl
-              type="date"
-              placeholder="Дата начала"
-              className={`${styles.searchInput} ${styles.datePicker}`} // Применяем стили
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-            <FormControl
-              type="date"
-              placeholder="Дата конца"
-              className={`${styles.searchInput} ${styles.datePicker}`} // Применяем стили
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-            <Dropdown className={styles.dropdown}>
-              <Dropdown.Toggle
-                variant="outline-secondary"
-                id="dropdown-basic"
-                className={styles.dropdownToggle}
-              >
-                {status || "Выберите статус"}
-              </Dropdown.Toggle>
-              <Dropdown.Menu className={styles.dropdownContent}>
+              {status || "Выберите статус"}
+            </Dropdown.Toggle>
+            <Dropdown.Menu className={styles.dropdownContent}>
+              {["в работе", "отклонен", "завершен"].map((s) => (
                 <Dropdown.Item
-                  onClick={() => setStatus("черновик")}
+                  key={s}
+                  onClick={() => handleStatusChange(s)}
                   className={styles.dropdownItem}
                 >
-                  черновик
+                  {s}
                 </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setStatus("в работе")}
-                  className={styles.dropdownItem}
-                >
-                  в работе
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setStatus("отклонен")}
-                  className={styles.dropdownItem}
-                >
-                  отклонен
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => setStatus("завершен")}
-                  className={styles.dropdownItem}
-                >
-                  завершен
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <Button
-              variant="outline-success"
-              className={styles.navLink}
-              type="submit"
-            >
-              Поиск
-            </Button>
-          </Form>
-        </Navbar.Collapse>
+              ))}
+              {status &&
+                ["в работе", "отклонен", "завершен"].includes(status) && (
+                  <Dropdown.Item
+                    key="Выберите статус"
+                    onClick={() => handleStatusChange("Выберите статус")}
+                    className={styles.dropdownItem}
+                  >
+                    Выберите статус
+                  </Dropdown.Item>
+                )}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Form>
       </Container>
     </Navbar>
   );

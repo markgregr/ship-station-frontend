@@ -31,13 +31,13 @@
 /* Стили для изображений на карточках */
 .cardsImg {
   max-width: 100%; /* Максимальная ширина изображения */
-  max-height: 100%; /* Максимальная высота изображения */
+  max-height: 100%;
   height: auto; /* Автоматическая высота, чтобы изображение не искажалось */
 }
 
 /* BaggageList.module.css */
 .cardsText {
-  font: normal 1.5rem/3.125rem var(--euclidflex-regular);
+  font: normal 1.3rem/2.725rem var(--euclidflex-regular);
 }
 .btn {
   width: 180px;
@@ -60,6 +60,13 @@
   background: var(--firstBlueShape);
 }
 /* BaggageList.module.css */
+/* Добавим стили для контейнера кнопок */
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px; /* Поднимем кнопки немного выше, чтобы были посередине */
+}
 
 /* Ваши стили для карточки */
 .cardDel {

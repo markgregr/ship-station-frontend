@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import styles from "./RegisterForm.module.css";
+import { useSelector } from "react-redux";
+import { selectIsAuthenticated } from "../../redux/auth/authSelectors";
 
 interface RegisterFormProps {
   onRegister: (full_name: string, email: string, password: string) => void;
@@ -9,15 +11,19 @@ interface RegisterFormProps {
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   const navigate = useNavigate();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
   const [full_name, setfull_name] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleRegister = () => {
     onRegister(full_name, email, password);
-    navigate("/auth"); // После успешной регистрации переходим на главную страницу
   };
-
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/baggage");
+    }
+  }, [navigate]);
   return (
     <Form className={styles.registerForm}>
       <Form.Label className={styles.title}>Регистрация</Form.Label>

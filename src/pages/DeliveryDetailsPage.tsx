@@ -1,16 +1,12 @@
 // DeliveryDetailsPage.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch } from "../redux/store";
 import { getDeliveryDetails } from "../redux/delivery/deliveryDetailsThunk";
 import { Card, Container } from "react-bootstrap";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
-import {
-  selectDeliveryDetails,
-  selectError,
-  selectloading,
-} from "../redux/delivery/deliveryDetailsSelectors";
+import { selectDeliveryDetails } from "../redux/delivery/deliveryDetailsSelectors";
 import { setDeliveryDetails } from "../redux/delivery/deliveryDetailsSlice";
 import BaggageList from "../components/BaggageList/BaggageList";
 import styles from "../components/BaggageList/BaggageList.module.css";
@@ -19,16 +15,14 @@ import { selectDeliveryID } from "../redux/baggage/baggageListSelectors.ts";
 import { deleteDelivery } from "../redux/baggage/baggageListThunk.ts";
 import NavbarDeliveryDetails from "../components/NavbarDeliveryDetails/NavbarDeliveryDetails.tsx";
 import { Spin } from "antd";
-import ErrorAlert from "../components/Alert/ErrorAlert.tsx";
+import { selectLoading } from "../redux/additional/additionalSelectors.ts";
 
 const DeliveryDetailsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { id } = useParams<{ id: string }>();
   const delivery = useSelector(selectDeliveryDetails);
   const deliveryID = useSelector(selectDeliveryID);
-  const loading = useSelector(selectloading);
-  const error = useSelector(selectError);
-
+  const loading = useSelector(selectLoading);
   useEffect(() => {
     if (id) {
       dispatch(getDeliveryDetails(id));
@@ -43,10 +37,7 @@ const DeliveryDetailsPage: React.FC = () => {
     try {
       await dispatch(deleteDelivery(baggageID));
       dispatch(getDeliveryDetails(String(deliveryID)));
-
-      console.log(`Delivery deleted successfully for baggage ${baggageID}`);
     } catch (error) {
-      console.error("Error deleting delivery", error);
     } finally {
     }
   };
@@ -55,7 +46,6 @@ const DeliveryDetailsPage: React.FC = () => {
     <Container>
       <NavigationBar />
       <NavbarDeliveryDetails />
-      {error && <ErrorAlert message={error} />}
       {loading ? (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
           <Spin size="large" />

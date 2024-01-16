@@ -8,21 +8,24 @@ import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { AppDispatch } from "../redux/store";
 import { addDelivery, getBaggageList } from "../redux/baggage/baggageListThunk";
 import {
-  selectSearchCode,
+  selectsearchCode,
   selectBaggageData,
-  selectNoResults,
-  selectloading,
 } from "../redux/baggage/baggageListSelectors";
 import { selectIsAuthenticated } from "../redux/auth/authSelectors";
 import { Spin } from "antd";
+import {
+  selectLoading,
+  selectResult,
+} from "../redux/additional/additionalSelectors";
+import { loading } from "../redux/additional/additionalSlice";
 
 const BaggageListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const searchCode = useSelector(selectSearchCode);
+  const searchCode = useSelector(selectsearchCode);
   const baggageData = useSelector(selectBaggageData);
-  const noResults = useSelector(selectNoResults);
-  const loading = useSelector(selectloading);
+  const result = useSelector(selectResult);
+  const load = useSelector(selectLoading);
   useEffect(() => {
     dispatch(getBaggageList(searchCode));
   }, []);
@@ -30,20 +33,19 @@ const BaggageListPage: React.FC = () => {
   const handleSearch = (code: string) => {
     dispatch(getBaggageList(code));
   };
-  const handleAddDelivery = (baggageId: number) => {
+  const handleAddDelivery = async (baggageId: number) => {
     dispatch(addDelivery(baggageId));
-    dispatch(getBaggageList(searchCode));
   };
 
   return (
     <div className={styles.body}>
       <NavigationBar />
       <NavbarComponent onSearch={handleSearch} />
-      {loading ? (
+      {load ? (
         <div style={{ textAlign: "center", marginTop: "50px" }}>
           <Spin size="large" />
         </div>
-      ) : noResults ? (
+      ) : !result ? (
         <div className={styles.pageTitle}>Ничего не найдено</div>
       ) : (
         <BaggageList

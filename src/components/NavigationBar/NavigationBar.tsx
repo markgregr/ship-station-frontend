@@ -27,7 +27,7 @@ const NavigationBar: React.FC = () => {
     deliveryID,
   };
   const handleLogout = () => {
-    dispatch(logout()); // Диспатчим экшен для выхода
+    dispatch(logout({ navigate })); // Диспатчим экшен для выхода
     navigate("/auth");
   };
 

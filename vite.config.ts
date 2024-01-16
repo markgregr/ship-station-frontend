@@ -13,5 +13,5 @@ export default defineConfig({
       },
     },
   },
-  base: "/RIP_FRONTEND/",
+  base: "/",
 });

@@ -5,20 +5,20 @@ import AuthForm from "../components/AuthForm/AuthForm";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 import { AppDispatch, RootState } from "../redux/store";
 import { login } from "../redux/auth/authActions";
-import {
-  selectIsAuthenticated,
-  selectloading,
-} from "../redux/auth/authSelectors";
+import { selectIsAuthenticated } from "../redux/auth/authSelectors";
 import { Spin } from "antd"; // Подключаем компонент Spin
+import { useNavigate } from "react-router-dom";
+import { selectLoading } from "../redux/additional/additionalSelectors";
 
 const AuthPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const isAuthenticated = useSelector((state: RootState) =>
     selectIsAuthenticated(state)
   );
-  const loading = useSelector(selectloading);
+  const loading = useSelector(selectLoading);
   const handleLogin = (email: string, password: string) => {
-    dispatch(login({ email, password }));
+    dispatch(login({ email, password, navigate }));
   };
 
   return (

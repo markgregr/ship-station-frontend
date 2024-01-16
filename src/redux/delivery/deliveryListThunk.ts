@@ -1,8 +1,10 @@
 // deliveryListThunk.ts
 import { createAsyncThunk, ThunkDispatch } from "@reduxjs/toolkit";
 import axios from "../../utils/axiosConfig";
-import { loadingStart, setDeliveries, setNoResults } from "./deliveryListSlice";
+import { setDeliveries } from "./deliveryListSlice";
 import { RootState } from "../store";
+import { handleError } from "../../utils/notificationConfig";
+import { loading } from "../additional/additionalSlice";
 
 interface GetDeliveriesParams {
   startFormationDate: string | null;
@@ -16,14 +18,20 @@ export const getDeliveries = createAsyncThunk<
   GetDeliveriesParams,
   { state: RootState; dispatch: ThunkDispatch<RootState, any, any> }
 >("delivery/getDeliveries", async (params, { dispatch }) => {
+  // let timer;
   try {
-    dispatch(loadingStart());
+    // timer = setTimeout(() => {
+    //   dispatch(loading(true));
+    // }, 1000);
     const response = await axios.get("/delivery/", { params });
-    dispatch(setNoResults(false));
+    dispatch(loading(false));
+    // clearTimeout(timer);
     dispatch(setDeliveries(response.data.deliveries));
     return response.data;
   } catch (error) {
-    dispatch(setNoResults(true));
+    handleError(error, dispatch);
     throw error;
+  } finally {
+    // clearTimeout(timer);
   }
 });

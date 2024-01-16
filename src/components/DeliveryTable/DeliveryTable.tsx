@@ -19,9 +19,6 @@ const DeliveryTable: React.FC<DeliveryTableProps> = ({ delivery }) => {
   const navigate = useNavigate();
 
   const handleRowClick = (deliveryId: number) => {
-    // Добавляем логику для обработки клика на строку
-    console.log(`Clicked on row with delivery ID ${deliveryId}`);
-
     // Переадресация на другую страницу
     navigate(`/delivery/${deliveryId}`);
   };

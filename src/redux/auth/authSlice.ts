@@ -2,10 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
   isAuthenticated: boolean;
-  loading: boolean;
   full_name: string | null;
   token: string | null;
   email: string | null;
+  role: string | null;
 }
 
 const loadAuthState = (): AuthState => {
@@ -16,10 +16,10 @@ const loadAuthState = (): AuthState => {
 const getInitialState = (): AuthState => {
   return {
     isAuthenticated: false,
-    loading: false,
     full_name: null,
     token: null,
     email: null,
+    role: null,
   };
 };
 
@@ -31,54 +31,55 @@ const authSlice = createSlice({
   reducers: {
     loginSuccess: (
       state,
-      action: PayloadAction<{ token: string; email: string; full_name: string }>
+      action: PayloadAction<{
+        token: string;
+        email: string;
+        full_name: string;
+        role: string;
+      }>
     ) => {
       state.isAuthenticated = true;
-      state.loading = false;
       state.token = action.payload.token;
       state.email = action.payload.email;
       state.full_name = action.payload.full_name;
+      state.role = action.payload.role;
       localStorage.setItem("authState", JSON.stringify(state));
-    },
-    loadingStart: (state) => {
-      state.loading = true;
     },
     loginFailure: (state) => {
       state.isAuthenticated = false;
-      state.loading = false;
       state.token = null;
       state.email = null;
       state.full_name = null;
+      state.role = null;
       localStorage.removeItem("authState");
     },
     logoutSuccess: (state) => {
       state.isAuthenticated = false;
-      state.loading = false;
       state.token = null;
       state.email = null;
       state.full_name = null;
+      state.role = null;
       localStorage.removeItem("authState");
     },
     registerSuccess: (
       state,
-      action: PayloadAction<{ full_name: string; token: string; email: string }>
+      action: PayloadAction<{
+        full_name: string;
+        token: string;
+        email: string;
+        role: string;
+      }>
     ) => {
       state.isAuthenticated = true;
-      state.loading = false;
-      state.full_name = action.payload.full_name;
       state.token = action.payload.token;
       state.email = action.payload.email;
       state.full_name = action.payload.full_name;
+      state.role = action.payload.role;
       localStorage.setItem("authState", JSON.stringify(state));
     },
   },
 });
 
-export const {
-  loginSuccess,
-  loadingStart,
-  loginFailure,
-  logoutSuccess,
-  registerSuccess,
-} = authSlice.actions;
+export const { loginSuccess, loginFailure, logoutSuccess, registerSuccess } =
+  authSlice.actions;
 export default authSlice.reducer;
