@@ -1,4 +1,3 @@
-// baggageListSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Baggage {
@@ -9,7 +8,7 @@ interface Baggage {
   baggage_type: string;
   owner_name: string;
   pasport_details: string;
-  photo: string;
+  photo_url: string;
   size: string;
   weight: number;
 }
@@ -18,12 +17,25 @@ interface BaggageListState {
   searchCode: string;
   baggages: Baggage[];
   deliveryID: number;
+  formData: Baggage;
 }
 
 const initialState: BaggageListState = {
   searchCode: "",
   baggages: [],
   deliveryID: 0,
+  formData: {
+    airline: "",
+    baggage_code: "#",
+    baggage_id: 0,
+    baggage_status: "",
+    baggage_type: "",
+    owner_name: "",
+    pasport_details: "",
+    photo_url: "",
+    size: "",
+    weight: 0,
+  },
 };
 
 const baggageListSlice = createSlice({
@@ -47,6 +59,9 @@ const baggageListSlice = createSlice({
         (baggage) => baggage.baggage_id !== baggageIdToRemove
       );
     },
+    setFormData: (state, action: PayloadAction<Baggage>) => {
+      state.formData = action.payload;
+    },
   },
 });
 
@@ -55,6 +70,7 @@ export const {
   setBaggageData,
   setDeliveryID,
   setRemoveBaggage,
+  setFormData,
 } = baggageListSlice.actions;
 export default baggageListSlice.reducer;
 

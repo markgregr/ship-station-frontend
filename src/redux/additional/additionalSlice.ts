@@ -23,12 +23,14 @@ interface AdditionalState {
   loading: boolean;
   notifications: INotification[];
   result: boolean;
+  isAdmin: boolean;
 }
 
 const initialState: AdditionalState = {
   loading: false,
   notifications: [],
   result: true,
+  isAdmin: false,
 };
 function generateUniqueString(): string {
   return (
@@ -44,6 +46,9 @@ const additionalSlice = createSlice({
     },
     result(state, action: PayloadAction<boolean>) {
       state.result = action.payload;
+    },
+    toggleAdmin(state, action: PayloadAction<boolean>) {
+      state.isAdmin = action.payload;
     },
     addNotification: (
       state,
@@ -121,7 +126,12 @@ const additionalSlice = createSlice({
   },
 });
 
-export const { loading, result, addNotification, deleteNotification } =
-  additionalSlice.actions;
+export const {
+  loading,
+  result,
+  addNotification,
+  deleteNotification,
+  toggleAdmin,
+} = additionalSlice.actions;
 
 export default additionalSlice.reducer;

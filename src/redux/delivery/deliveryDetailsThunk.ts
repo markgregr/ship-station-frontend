@@ -101,3 +101,37 @@ export const updateFlightNumber = createAsyncThunk(
     }
   }
 );
+
+export const updateDeliveryStatusForModerator = createAsyncThunk(
+  "delivery/updateDeliveryStatusForModerator",
+  async (
+    {
+      deliveryId,
+      deliveryStatus,
+    }: { deliveryId: string; deliveryStatus: string },
+    { dispatch }
+  ) => {
+    let timer;
+    try {
+      timer = setTimeout(() => {
+        dispatch(loading(true));
+      }, 250);
+      const response = await axios.put(
+        `/delivery/${deliveryId}/status/moderator`,
+        {
+          delivery_status: deliveryStatus,
+        }
+      );
+      dispatch(loading(false));
+      clearTimeout(timer);
+      // Можно добавить дополнительные действия, если нужно
+      handleSuccess(response, dispatch);
+      return response.data.delivery;
+    } catch (error) {
+      handleError(error, dispatch);
+      throw error;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+);

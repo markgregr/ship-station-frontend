@@ -45,17 +45,11 @@ const NavbarDeliveryDetails: React.FC = () => {
     }
   };
   const onUpdateFlightNumber = async () => {
-    try {
-      setLoading(true);
-      if (!id) {
-        throw new Error("ID не найден");
-      }
-      dispatch(updateFlightNumber({ id, flight_number }));
-      dispatch(getDeliveryDetails(id));
-    } catch (error) {
-    } finally {
-      setLoading(false);
+    if (!id) {
+      throw new Error("ID не найден");
     }
+    dispatch(updateFlightNumber({ id, flight_number }));
+    dispatch(getDeliveryDetails(id));
   };
   const isFormButtonDisabled =
     loading || !delivery?.baggages || !delivery?.flight_number;

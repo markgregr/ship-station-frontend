@@ -1,0 +1,84 @@
+/* CreateBaggageForm.module.css */
+.card {
+  background: none;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  height: 70vh;
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cardTitle {
+  font: normal 2.5rem/2.125rem var(--euclidflex-regular);
+  color: #fff;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.formContainer {
+  max-width: 400px;
+  margin: auto;
+}
+
+.formGroup {
+  margin-bottom: 10px;
+}
+
+.formLabel {
+  font-weight: bold;
+  margin-bottom: 5px;
+  margin-right: 2%;
+  font-family: "EuclidFlex Normal", sans-serif;
+}
+
+.formControl {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.btn {
+  width: 180px;
+  height: 60px;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  transition: 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-family: "EuclidFlex Bold", sans-serif;
+  font-size: 18px;
+}
+
+.btn:hover {
+  transition: 0.5s ease-in-out;
+  background: var(--firstBlueShape);
+}
+
+.searchInput {
+  color: white;
+  font-size: 20px;
+  border: 1px solid var(--euclidflex-medium);
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  width: 50%;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: center;
+}

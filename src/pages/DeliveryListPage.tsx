@@ -15,8 +15,12 @@ import {
   selectDeliveries,
 } from "../redux/delivery/deliveryListSelectors";
 import { Spin } from "antd";
-import { selectLoading } from "../redux/additional/additionalSelectors";
+import {
+  selectLoading,
+  selectisAdmin,
+} from "../redux/additional/additionalSelectors";
 import NavbarDelivery from "../components/NavbarDelivery/NavbarDelivery";
+import { selectRole } from "../redux/auth/authSelectors";
 
 const DeliveryListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +30,8 @@ const DeliveryListPage: React.FC = () => {
   const searchFlightNumber = useSelector(selectsearchFlightNumber);
   const deliveries = useSelector(selectDeliveries);
   const loading = useSelector(selectLoading);
+  const role = useSelector(selectRole);
+  const isAdmin = useSelector(selectisAdmin);
   const [isFetching, setIsFetching] = useState(false);
 
   const fetchData = async () => {
@@ -44,7 +50,7 @@ const DeliveryListPage: React.FC = () => {
   useEffect(() => {
     const fetchInterval = setInterval(() => {
       fetchData();
-    }, 150);
+    }, 1000);
     return () => clearInterval(fetchInterval);
   }, [
     dispatch,
@@ -63,7 +69,7 @@ const DeliveryListPage: React.FC = () => {
         </div>
       ) : (
         <section className={styles.section}>
-          <DeliveryTable delivery={deliveries} />
+          <DeliveryTable delivery={deliveries} isAdmin={isAdmin} />
         </section>
       )}
     </Container>

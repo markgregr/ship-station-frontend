@@ -7,3 +7,4 @@ export const selectBaggageData = (state: RootState) =>
   state.baggageList.baggages;
 export const selectDeliveryID = (state: RootState) =>
   state.baggageList.deliveryID;
+export const selectFormData = (state: RootState) => state.baggageList.formData;

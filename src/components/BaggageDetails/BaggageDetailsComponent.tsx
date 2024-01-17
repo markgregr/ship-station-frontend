@@ -23,7 +23,7 @@ const BaggageDetailsComponent: React.FC<BaggageDetailsComponentProps> = ({
     baggage_type,
     weight,
     size,
-    photo,
+    photo_url,
   } = baggageDetails.baggage;
 
   return (
@@ -32,7 +32,7 @@ const BaggageDetailsComponent: React.FC<BaggageDetailsComponentProps> = ({
         <Card.Img
           className={styles.cardImg}
           variant="top"
-          src={photo} // используйте photo вместо baggageDetails.photo
+          src={photo_url} // используйте photo_url вместо baggageDetails.photo_url
         />
         <Card.Body>
           <Card.Title className={styles.cardTitle}>{baggage_code}</Card.Title>

@@ -58,7 +58,7 @@ const NavbarDelivery: React.FC<NavbarDeliveryProps> = () => {
     if (currentValue && currentValue.trim() !== "") {
       dispatch(setsearchFlightNumber(currentValue.trim()));
     }
-  }, 200);
+  }, 1200);
 
   useEffect(() => {
     handleSearch();

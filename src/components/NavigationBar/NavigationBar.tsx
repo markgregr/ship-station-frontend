@@ -12,9 +12,13 @@ import styles from "./NavigationBar.module.css";
 import { logout } from "../../redux/auth/authActions.ts"; // Импортируем экшен для выхода
 import {
   selectIsAuthenticated,
+  selectRole,
   selectfull_name,
 } from "../../redux/auth/authSelectors.ts";
 import { selectDeliveryID } from "../../redux/baggage/baggageListSelectors.ts";
+import { selectisAdmin } from "../../redux/additional/additionalSelectors.ts";
+import { toggleAdmin } from "../../redux/additional/additionalSlice.ts";
+import { Form } from "react-bootstrap";
 
 const NavigationBar: React.FC = () => {
   const dispatch = useDispatch(); // Получаем функцию dispatch из хука useDispatch
@@ -22,15 +26,16 @@ const NavigationBar: React.FC = () => {
   const full_name = useSelector(selectfull_name);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const deliveryID = useSelector(selectDeliveryID);
+  const isAdmin = useSelector(selectisAdmin);
+  const role = useSelector(selectRole);
   const showConstructor = {
     showConstructorButton: deliveryID > 0,
     deliveryID,
   };
   const handleLogout = () => {
-    dispatch(logout({ navigate })); // Диспатчим экшен для выхода
+    dispatch(logout({ navigate }));
     navigate("/auth");
   };
-
   return (
     <Navbar className={styles.navbar}>
       <Container>
@@ -45,18 +50,27 @@ const NavigationBar: React.FC = () => {
           <Nav className={styles.nav}>
             {isAuthenticated && (
               <>
+                {role === "модератор" && (
+                  <Form.Check
+                    className={styles.customSwitch}
+                    type="switch"
+                    label="Модератор"
+                    checked={isAdmin}
+                    onChange={() => dispatch(toggleAdmin(!isAdmin))}
+                  />
+                )}
                 <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
                   Багаж
                 </Nav.Link>
                 <Nav.Link as={Link} to="/delivery" className={styles.navLink}>
-                  Мои заявки
+                  {isAdmin ? "Заявки" : "Мои заявки"}
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to={`/delivery/${showConstructor.deliveryID}`}
-                  disabled={!showConstructor.showConstructorButton}
+                  disabled={!showConstructor.showConstructorButton || isAdmin}
                   className={`${styles.navLink} ${
-                    !showConstructor.showConstructorButton
+                    !showConstructor.showConstructorButton || isAdmin
                       ? styles.disabledLink
                       : ""
                   }`}

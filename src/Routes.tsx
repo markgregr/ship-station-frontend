@@ -8,6 +8,8 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import DeliveryListPage from "./pages/DeliveryListPage";
 import { MainLayout } from "./components/MainLayout/MainLayout";
+import CreateBaggagePage from "./pages/CreateBaggagePage";
+import EditBaggagePage from "./pages/EditBaggagePage";
 
 const routes: RouteObject[] = [
   {
@@ -34,16 +36,30 @@ const routes: RouteObject[] = [
         element: <DeliveryDetailsPage />,
       },
       {
-        path: "/baggage", // Добавлено
-        element: <BaggageListPage />, // Добавлено
+        path: "/baggage",
+        element: <BaggageListPage />,
+        // children: [
+        //   {
+        //     path: "create",
+        //     element: <CreateBaggagePage />,
+        //   },
+        // ],
       },
       {
         path: "/register", // Добавлено
         element: <RegisterPage />, // Добавлено
       },
       {
+        path: "/baggage/create", // Добавлено
+        element: <CreateBaggagePage />, // Добавлено
+      },
+      {
+        path: "/baggage/:id/update", // Добавлено
+        element: <EditBaggagePage />, // Добавлено
+      },
+      {
         path: "*",
-        element: <HomePage />,
+        element: <BaggageListPage />,
       },
     ],
   },

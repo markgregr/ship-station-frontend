@@ -9,6 +9,7 @@ import {
 } from "./baggageListSlice";
 import { handleError, handleSuccess } from "../../utils/notificationConfig";
 import { loading } from "../additional/additionalSlice";
+import { NavigateFunction } from "react-router";
 
 interface GetBaggagesRepsonse {
   baggages: Baggage[];
@@ -77,3 +78,63 @@ export const deleteDelivery = createAsyncThunk<void, number>(
     }
   }
 );
+export const deleteBaggage = createAsyncThunk<void, number>(
+  "baggageList/deleteBaggage",
+  async (baggageID, { dispatch }) => {
+    let timer;
+    try {
+      timer = setTimeout(() => {
+        dispatch(loading(true));
+      }, 250);
+      const response = await axios.delete(`/baggage/${baggageID}`);
+      dispatch(setBaggageData(response.data.baggages));
+      dispatch(setDeliveryID(response.data.deliveryID));
+      handleSuccess(response, dispatch);
+    } catch (error) {
+      handleError(error, dispatch);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+);
+
+interface CreateBaggagePayload {
+  airline: string;
+  baggage_code: string;
+  baggage_type: string;
+  owner_name: string;
+  pasport_details: string;
+  size: string;
+  weight: number;
+  navigate?: NavigateFunction;
+}
+
+export const createBaggage = createAsyncThunk<
+  GetBaggagesRepsonse,
+  CreateBaggagePayload
+>("baggageDetails/createBaggage", async (payload, { dispatch }) => {
+  try {
+    const { navigate, ...restPayload } = payload; // Извлекаем navigate из payload
+    const timer = setTimeout(() => {
+      dispatch(loading(true));
+    }, 250);
+    const response = await axios.post<GetBaggagesRepsonse>(
+      `/baggage/`,
+      { ...restPayload } // Используем оставшуюся часть payload
+    );
+    dispatch(loading(false));
+    clearTimeout(timer);
+    dispatch(setBaggageData(response.data.baggages));
+    dispatch(setDeliveryID(response.data.deliveryID));
+
+    // Проверяем наличие функции navigate и вызываем ее, если она есть
+    if (navigate) {
+      navigate("/baggage");
+    }
+    handleSuccess(response, dispatch);
+    return response.data;
+  } catch (error) {
+    handleError(error, dispatch);
+    throw error;
+  }
+});

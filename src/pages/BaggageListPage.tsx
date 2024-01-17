@@ -16,8 +16,8 @@ import { Spin } from "antd";
 import {
   selectLoading,
   selectResult,
+  selectisAdmin,
 } from "../redux/additional/additionalSelectors";
-import { loading } from "../redux/additional/additionalSlice";
 
 const BaggageListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +26,7 @@ const BaggageListPage: React.FC = () => {
   const baggageData = useSelector(selectBaggageData);
   const result = useSelector(selectResult);
   const load = useSelector(selectLoading);
+  const isAdmin = useSelector(selectisAdmin);
   useEffect(() => {
     dispatch(getBaggageList(searchCode));
   }, []);
@@ -54,6 +55,7 @@ const BaggageListPage: React.FC = () => {
           isDeliveryConstructor={false}
           isDeliveryNotDraft={false}
           onAddDelivery={handleAddDelivery}
+          isAdmin={isAdmin}
         />
       )}
     </div>
