@@ -5,6 +5,7 @@ import EditBaggageForm from "../components/EditBaggageForm/EditBaggageForm";
 
 import { selectBaggageDetails } from "../redux/baggage/baggageDetailsSelectors";
 import { useSelector } from "react-redux";
+import NavigationBar from "../components/NavigationBar/NavigationBar";
 
 const EditBaggagePage: React.FC = () => {
   const baggage = useSelector(selectBaggageDetails);
