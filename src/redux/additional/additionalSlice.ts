@@ -25,12 +25,18 @@ interface AdditionalState {
   result: boolean;
   isAdmin: boolean;
 }
+const authState = localStorage.getItem("authState");
+let isAdmin = false;
 
+if (authState) {
+  const authData = JSON.parse(authState);
+  isAdmin = authData.role === "модератор";
+}
 const initialState: AdditionalState = {
   loading: false,
   notifications: [],
   result: true,
-  isAdmin: false,
+  isAdmin: isAdmin,
 };
 function generateUniqueString(): string {
   return (

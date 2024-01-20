@@ -62,7 +62,7 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
           <Form className={styles.form} onSubmit={handleSearch}>
             <FormControl
               type="search"
-              placeholder="Поиск"
+              placeholder="Введите код багажа"
               className={styles.searchInput}
               aria-label="Поиск"
               value={searchCode}

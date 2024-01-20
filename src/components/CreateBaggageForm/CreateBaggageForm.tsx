@@ -67,7 +67,7 @@ const CreateBaggageForm: React.FC = () => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter baggage code"
+                placeholder="Введите код багажа"
                 name="baggage_code"
                 value={formData.baggage_code}
                 onChange={handleInputChange}
@@ -79,7 +79,7 @@ const CreateBaggageForm: React.FC = () => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter airline"
+                placeholder="Введите авиакомпанию"
                 name="airline"
                 value={formData.airline}
                 onChange={handleInputChange}
@@ -92,7 +92,7 @@ const CreateBaggageForm: React.FC = () => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter owner_name"
+                placeholder="Введите ФИО владельца"
                 name="owner_name"
                 value={formData.owner_name}
                 onChange={handleInputChange}
@@ -109,7 +109,7 @@ const CreateBaggageForm: React.FC = () => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter pasport_details"
+                placeholder="Введите паспортные данные"
                 name="pasport_details"
                 value={formData.pasport_details}
                 onChange={handleInputChange}
@@ -120,7 +120,7 @@ const CreateBaggageForm: React.FC = () => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter airline"
+                placeholder="Введите тип багажа"
                 name="baggage_type"
                 value={formData.baggage_type}
                 onChange={handleInputChange}
@@ -131,7 +131,7 @@ const CreateBaggageForm: React.FC = () => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter weight"
+                placeholder="Введите вес"
                 name="weight"
                 value={formData.weight}
                 onChange={handleInputChange}
@@ -142,7 +142,7 @@ const CreateBaggageForm: React.FC = () => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter size"
+                placeholder="Введите размер"
                 name="size"
                 value={formData.size}
                 onChange={handleInputChange}

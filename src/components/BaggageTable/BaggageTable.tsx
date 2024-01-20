@@ -12,9 +12,20 @@ import { AppDispatch } from "../../redux/store";
 interface BaggageTableProps {
   baggage: Baggage[];
   isAdmin: boolean;
+  isDeliveryConstructor: boolean;
+  isDeliveryNotDraft: boolean;
+  isAuthenticated?: boolean;
+  onAddDelivery?: (baggageId: number) => void;
 }
 
-const BaggageTable: React.FC<BaggageTableProps> = ({ baggage, isAdmin }) => {
+const BaggageTable: React.FC<BaggageTableProps> = ({
+  baggage,
+  isAdmin,
+  isDeliveryConstructor,
+  isDeliveryNotDraft,
+  isAuthenticated,
+  onAddDelivery,
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const handleRowClick = (baggageID: number, e: React.MouseEvent) => {
@@ -56,7 +67,7 @@ const BaggageTable: React.FC<BaggageTableProps> = ({ baggage, isAdmin }) => {
             <tr
               key={baggageItem.baggage_id}
               className={`${styles.tr} ${styles.clickable}`}
-              onClick={(e) => handleRowClick(baggageItem.baggage_id, e)}
+              // onClick={(e) => handleRowClick(baggageItem.baggage_id, e)}
             >
               <td className={styles.td}>{baggageItem.baggage_code}</td>
               <td className={styles.td}>{baggageItem.airline}</td>
@@ -65,7 +76,7 @@ const BaggageTable: React.FC<BaggageTableProps> = ({ baggage, isAdmin }) => {
               <td className={styles.td}>{baggageItem.baggage_type}</td>
               <td className={styles.td}>{baggageItem.weight}</td>
               <td className={styles.td}>{baggageItem.size}</td>
-              <td className={styles.td}>
+              <td className={styles.td} style={{ position: "relative" }}>
                 <img
                   src={baggageItem.photo_url}
                   alt={`Baggage ${baggageItem.baggage_id}`}
@@ -95,12 +106,28 @@ const BaggageTable: React.FC<BaggageTableProps> = ({ baggage, isAdmin }) => {
                     </Button>
                   </>
                 )}
+                <Button
+                  variant="danger"
+                  className={styles.btn}
+                  onClick={(e) => handleRowClick(baggageItem.baggage_id, e)}
+                >
+                  Подробное
+                </Button>
+                <Button
+                  variant="success"
+                  className={styles.btn}
+                  onClick={() =>
+                    onAddDelivery && onAddDelivery(baggageItem.baggage_id)
+                  }
+                >
+                  Добавить багаж
+                </Button>
               </td>
             </tr>
           ))}
         {isAdmin && (
           <tr>
-            <td colSpan={8} className={styles.td}>
+            <td colSpan={9} className={styles.td}>
               <Button
                 variant="success"
                 onClick={handleCreateClick}

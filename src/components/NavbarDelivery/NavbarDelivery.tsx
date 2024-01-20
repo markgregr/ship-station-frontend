@@ -13,14 +13,18 @@ import {
   setStartFormationDate,
   setEndFormationDate,
   setDeliveryStatus,
+  setOwnerName,
 } from "../../redux/delivery/deliveryListSlice";
 import debounce from "lodash/debounce";
 import {
   selectDeliveryStatus,
   selectEndFormationDate,
+  selectOwnerName,
   selectStartFormationDate,
   selectsearchFlightNumber,
 } from "../../redux/delivery/deliveryListSelectors";
+import { setFlightNumber } from "../../redux/delivery/deliveryDetailsSlice";
+import { selectisAdmin } from "../../redux/additional/additionalSelectors";
 
 interface NavbarDeliveryProps {}
 
@@ -28,11 +32,12 @@ const NavbarDelivery: React.FC<NavbarDeliveryProps> = () => {
   const dispatch = useDispatch();
 
   // Используем селекторы из редакса
-  const flightNumber = useSelector(selectsearchFlightNumber);
+  // const flightNumber = useSelector(selectsearchFlightNumber);
+  const ownerName = useSelector(selectOwnerName);
   const startDate = useSelector(selectStartFormationDate);
   const endDate = useSelector(selectEndFormationDate);
   const status = useSelector(selectDeliveryStatus);
-
+  const isAdmin = useSelector(selectisAdmin);
   const inputRef = useRef<string | null>(null);
 
   const handleStartDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,42 +58,56 @@ const NavbarDelivery: React.FC<NavbarDeliveryProps> = () => {
     }
   };
 
-  const handleSearch = debounce(() => {
+  // const handleSearch = debounce(() => {
+  //   const currentValue = inputRef.current;
+  //   if (currentValue && currentValue.trim() !== "") {
+  //     dispatch(setOwnerName(currentValue.trim()));
+  //   }
+  // }, 1200);
+  const handleSearch = () => {
     const currentValue = inputRef.current;
-    if (currentValue && currentValue.trim() !== "") {
-      dispatch(setsearchFlightNumber(currentValue.trim()));
+    console.log("Current value in handleSearch:", currentValue);
+    if (currentValue && currentValue !== "") {
+      console.log("Value to be dispatched:", currentValue);
+      dispatch(setOwnerName(currentValue));
     }
-  }, 1200);
+  };
 
   useEffect(() => {
     handleSearch();
-  }, [flightNumber, startDate, endDate, status]);
+  }, [ownerName, startDate, endDate, status]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //console.log("Input value before setting ref:", e.target.value);
     inputRef.current = e.target.value;
+    //console.log("Input value after setting ref:", inputRef.current);
     handleSearch();
   };
 
   const handleClearSearch = () => {
-    dispatch(setsearchFlightNumber(""));
+    dispatch(setOwnerName(""));
+    inputRef.current = ""; // Добавим эту строку для сброса ref при очистке поиска
+    //dispatch(setFlightNumber(""));
   };
 
   return (
     <Navbar className={styles.navbar}>
       <Container>
         <Form className={styles.form}>
-          <FormControl
-            type="text"
-            placeholder="Номер рейса"
-            className={`${styles.searchInput} ${styles.datePicker}`}
-            value={flightNumber || ""}
-            onChange={handleInputChange}
-            onInput={(e) => {
-              if (!e.currentTarget.value.trim()) {
-                handleClearSearch();
-              }
-            }}
-          />
+          {isAdmin && (
+            <FormControl
+              type="search"
+              placeholder="ФИО создателя"
+              className={`${styles.searchOwner}`}
+              value={ownerName || ""}
+              onChange={handleInputChange}
+              onInput={(e) => {
+                if (!e.currentTarget.value && e.currentTarget.value !== " ") {
+                  handleClearSearch();
+                }
+              }}
+            />
+          )}
           <FormControl
             type="date"
             placeholder="Дата начала"

@@ -15,3 +15,6 @@ export const selectsearchFlightNumber = (state: RootState) =>
 
 export const selectDeliveries = (state: RootState) =>
   state.deliveryList.deliveries;
+
+export const selectOwnerName = (state: RootState) =>
+  state.deliveryList.ownerName;

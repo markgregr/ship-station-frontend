@@ -17,6 +17,7 @@ interface DeliveryState {
   endFormationDate: string | null;
   deliveryStatus: string | null;
   searchFlightNumber: string | null;
+  ownerName: string | null;
 }
 
 const initialState: DeliveryState = {
@@ -25,6 +26,7 @@ const initialState: DeliveryState = {
   endFormationDate: null,
   deliveryStatus: null,
   searchFlightNumber: null,
+  ownerName: null,
 };
 
 const deliverySlice = createSlice({
@@ -46,6 +48,9 @@ const deliverySlice = createSlice({
     setsearchFlightNumber: (state, action: PayloadAction<string | null>) => {
       state.searchFlightNumber = action.payload;
     },
+    setOwnerName: (state, action: PayloadAction<string | null>) => {
+      state.ownerName = action.payload;
+    },
   },
 });
 
@@ -55,5 +60,6 @@ export const {
   setEndFormationDate,
   setDeliveryStatus,
   setsearchFlightNumber,
+  setOwnerName,
 } = deliverySlice.actions;
 export default deliverySlice.reducer;

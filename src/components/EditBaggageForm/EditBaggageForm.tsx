@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+// EditBaggageForm.jsx
+import React from "react";
 import { Form, Button, Container, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
@@ -15,17 +16,6 @@ import { useParams } from "react-router";
 import { selectUpdateFormData } from "../../redux/baggage/baggageDetailsSelectors";
 import { useNavigate } from "react-router-dom";
 
-// Обновляем BaggageRequest, добавляя отсутствующие свойства
-export interface BaggageRequest {
-  airline: string;
-  baggage_code: string;
-  baggage_type: string;
-  owner_name: string;
-  pasport_details: string;
-  size: string;
-  weight: number;
-}
-
 interface EditBaggageFormProps {
   baggage: BaggageDetails | null;
 }
@@ -34,8 +24,7 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  const formData = useSelector(selectUpdateFormData); // Получаем данные формы из Redux
-  // Используем BaggageRequest напрямую вместо formData
+  const formData = useSelector(selectUpdateFormData);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -47,32 +36,25 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
       })
     );
   };
+
   const handlNavigateBaggageList = () => {
     navigate("/baggage");
   };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      // Взять первое изображение из выбранных файлов
       const imageFile = e.target.files[0];
-
-      // Создать объект FormData и добавить изображение
       const formData = new FormData();
       formData.append("image", imageFile);
-
-      // Вызвать createBaggageWithImage для отправки данных на сервер
       dispatch(updateBaggageImage({ id: Number(id), imageData: formData }));
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Преобразовываем вес в число
     const weightAsNumber = Number(formData.weight);
 
-    // Проверяем, является ли вес числом
     if (!isNaN(weightAsNumber)) {
-      // Вызываем thunk для редактирования багажа
       dispatch(
         updateBaggage({
           id: Number(id) || 0,
@@ -80,11 +62,10 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
             ...formData,
             weight: weightAsNumber,
           },
-          navigate: handlNavigateBaggageList, // Передаем функцию навигации
+          navigate: handlNavigateBaggageList,
         })
       );
     } else {
-      // Обработка ошибки, если вес не является числом
       console.error("Ошибка: Вес должен быть числом.");
     }
   };
@@ -92,17 +73,17 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
   return (
     <Container>
       <Card className={styles.card}>
-        <Card.Body>
+        <Card.Body className={styles.cardContent}>
           <Card.Title className={styles.cardTitle}>
-            Форма создания багажа
+            Форма изменения багажа
           </Card.Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group className={styles.formGroup} controlId="baggage_code">
               <Form.Label className={styles.formLabel}>Код багажа</Form.Label>
               <Form.Control
-                className={`${styles.formGroup} ${styles.searchInput}`}
+                className={`${styles.searchInput}`}
                 type="text"
-                placeholder="Enter baggage code"
+                placeholder="Введите код багажа"
                 name="baggage_code"
                 value={formData.baggage_code || ""}
                 onChange={handleInputChange}
@@ -113,7 +94,7 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter airline"
+                placeholder="Введите авиакомпанию"
                 name="airline"
                 value={formData.airline}
                 onChange={handleInputChange}
@@ -126,7 +107,7 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter owner_name"
+                placeholder="Введите ФИО владельца"
                 name="owner_name"
                 value={formData.owner_name}
                 onChange={handleInputChange}
@@ -143,7 +124,7 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter pasport_details"
+                placeholder="Введите паспортные данные"
                 name="pasport_details"
                 value={formData.pasport_details}
                 onChange={handleInputChange}
@@ -154,7 +135,7 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter baggage type"
+                placeholder="Введите тип багажа"
                 name="baggage_type"
                 value={formData.baggage_type}
                 onChange={handleInputChange}
@@ -165,7 +146,7 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter weight"
+                placeholder="Введите вес"
                 name="weight"
                 value={formData.weight}
                 onChange={handleInputChange}
@@ -176,20 +157,24 @@ const EditBaggageForm: React.FC<EditBaggageFormProps> = ({ baggage }) => {
               <Form.Control
                 className={`${styles.formGroup} ${styles.searchInput}`}
                 type="text"
-                placeholder="Enter size"
+                placeholder="Введите размер"
                 name="size"
                 value={formData.size}
                 onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group className={styles.formGroup} controlId="image">
-              <Form.Label className={styles.formLabel}>Изображение</Form.Label>
-              <Form.Control
-                className={`${styles.formGroup} ${styles.searchInput}`}
-                type="file"
-                name="image"
-                onChange={handleImageChange}
-              />
+              <Form.Label className={styles.btnImage}>
+                Загрузить изображение
+              </Form.Label>
+              <div className={styles.customFileInputContainer}>
+                <Form.Control
+                  className={styles.customFileInput}
+                  type="file"
+                  name="image"
+                  onChange={handleImageChange}
+                />
+              </div>
             </Form.Group>
             <Container className={styles.btnContainer}>
               <Button className={styles.btn} onClick={handleSubmit}>

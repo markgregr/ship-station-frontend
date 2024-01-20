@@ -39,18 +39,22 @@ export const getBaggageList = createAsyncThunk<GetBaggagesRepsonse, string>(
   }
 );
 
-export const addDelivery = createAsyncThunk<void, number>(
+export const addDelivery = createAsyncThunk<
+  void,
+  { baggageID: number; searchCode: string }
+>(
   "baggageList/addDelivery",
-  async (baggageID, { dispatch }) => {
+  async ({ baggageID, searchCode }, { dispatch }) => {
     let timer;
     try {
       timer = setTimeout(() => {
         dispatch(loading(true));
       }, 250);
       const response = await axios.post(`/baggage/${baggageID}/delivery`);
-      dispatch(setBaggageData(response.data.baggages));
-      dispatch(setDeliveryID(response.data.deliveryID));
       handleSuccess(response, dispatch);
+
+      // После успешного добавления доставки вызываем метод getBaggageList
+      dispatch(getBaggageList(searchCode));
     } catch (error: any) {
       handleError(error, dispatch);
       throw error;

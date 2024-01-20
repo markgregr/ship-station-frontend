@@ -50,7 +50,7 @@ const NavigationBar: React.FC = () => {
           <Nav className={styles.nav}>
             {isAuthenticated && (
               <>
-                {role === "модератор" && (
+                {/* {role === "модератор" && (
                   <Form.Check
                     className={styles.customSwitch}
                     type="switch"
@@ -58,7 +58,7 @@ const NavigationBar: React.FC = () => {
                     checked={isAdmin}
                     onChange={() => dispatch(toggleAdmin(!isAdmin))}
                   />
-                )}
+                )} */}
                 <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
                   Багаж
                 </Nav.Link>
@@ -68,9 +68,9 @@ const NavigationBar: React.FC = () => {
                 <Nav.Link
                   as={Link}
                   to={`/delivery/${showConstructor.deliveryID}`}
-                  disabled={!showConstructor.showConstructorButton || isAdmin}
+                  disabled={!showConstructor.showConstructorButton}
                   className={`${styles.navLink} ${
-                    !showConstructor.showConstructorButton || isAdmin
+                    !showConstructor.showConstructorButton
                       ? styles.disabledLink
                       : ""
                   }`}

@@ -34,8 +34,8 @@ const BaggageListPage: React.FC = () => {
   const handleSearch = (code: string) => {
     dispatch(getBaggageList(code));
   };
-  const handleAddDelivery = async (baggageId: number) => {
-    dispatch(addDelivery(baggageId));
+  const handleAddDelivery = (baggageId: number) => {
+    dispatch(addDelivery({ baggageID: baggageId, searchCode: searchCode }));
   };
 
   return (

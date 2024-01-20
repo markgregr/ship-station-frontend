@@ -28,7 +28,13 @@ const BaggageList: React.FC<BaggageListProps> = ({
   return (
     <Container>
       {isAdmin ? (
-        <BaggageTable baggage={baggageData} isAdmin={isAdmin} />
+        <BaggageTable
+          baggage={baggageData}
+          isAdmin={isAdmin}
+          isDeliveryConstructor={false}
+          isDeliveryNotDraft={false}
+          onAddDelivery={onAddDelivery}
+        />
       ) : (
         <Row className={styles.cards}>
           {Array.isArray(baggageData) && baggageData.length > 0 ? (

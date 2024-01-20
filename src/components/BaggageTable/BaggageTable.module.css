@@ -24,15 +24,17 @@
   margin-top: 0px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-top: none;
+  font-family: "EuclidFlex Normal", sans-serif;
 }
 
 .th {
   padding: 20px 15px;
   text-align: center;
   font-weight: 500;
-  font-size: 2.1rem;
+  font-size: 1.8rem;
   line-height: 2.125rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 136, 0, 0.9);
+  font-family: "EuclidFlex Medium", sans-serif;
   text-transform: uppercase;
   border-right: 1px solid rgba(255, 255, 255, 0.5);
   border-bottom: 2px solid rgba(255, 255, 255, 0.5);
@@ -40,16 +42,21 @@
 
 .td {
   padding: 15px;
-  text-align: left;
+  justify-content: center;
+  text-align: center;
   vertical-align: middle;
   font-weight: normal;
-  font-size: 1.5rem;
-  line-height: 3.125rem;
+  font-family: "EuclidFlex Medium", sans-serif;
+  font-size: 1.7rem;
+  line-height: 1.725rem;
   color: rgba(255, 255, 255, 0.8);
   border-bottom: solid 1px rgba(255, 255, 255, 0.1);
   position: relative; /* Added position relative */
 }
 
+.td:last-child:hover {
+  background-color: transparent;
+}
 /* В файле DeliveryTable.module.css */
 .link {
   display: block; /* Делаем ссылку блочным элементом, чтобы занимала всю ширину родительского <tr> */
@@ -60,17 +67,24 @@
 .link:hover {
   text-decoration: underline;
 }
-.tr:hover .td {
+.tr {
+  transition: background-color 0.3s;
+}
+.tr:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-.clickable {
+
+.td:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+/* .clickable {
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .clickable:hover {
   background-color: rgba(255, 255, 255, 0.1);
-}
+} */
 /* Демонстрационные стили */
 
 .made-with-love {
@@ -115,26 +129,27 @@
 }
 
 .btn {
-  width: 180px;
+  width: 200px;
   height: 60px;
   cursor: pointer;
   background: transparent;
   outline: none;
   transition: 0.5s ease-in-out;
-  display: flex; /* Устанавливаем кнопку как flex-контейнер */
-  align-items: center; /* Центрируем элементы по вертикали */
-  justify-content: center; /* Центрируем элементы по горизонтали */
-  text-align: center; /* Выравнивание текста по центру */
-  color: white; /* Белый цвет текста */
-  font-family: "EuclidFlex Bold", sans-serif; /* Установка шрифта */
-  font-size: 18px; /* Размер шрифта */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(255, 136, 0, 0.9);
+  font-size: 1.5rem;
+  font-family: "EuclidFlex Bold", sans-serif;
+  border: 2px solid rgba(255, 136, 0, 0.9); /* Белая рамка */
 }
 
 .btn:hover {
   transition: 0.5s ease-in-out;
-  background: var(--firstBlueShape);
+  background: rgba(0, 0, 34, 0.4);
+  border-color: rgba(0, 0, 34, 0.4);
 }
-
 .disabledLink {
   color: #888; /* цвет текста тусклой ссылки */
   cursor: not-allowed; /* изменение курсора на "not-allowed" */
@@ -143,11 +158,6 @@
 .photo_url {
   width: 100%;
   height: 100%;
-}
-.td {
-  padding: 0; /* Убираем внутренний отступ */
-  border: none; /* Убираем границы */
-  position: relative;
 }
 
 .createBtn {
@@ -161,14 +171,13 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
+  color: rgba(255, 136, 0, 0.9);
   font-family: "EuclidFlex Bold", sans-serif;
-  font-size: 18px;
-  position: absolute; /* Используем абсолютное позиционирование */
-  top: 0;
-  left: 0;
+  border: 2px solid rgba(255, 136, 0, 0.9); /* Белая рамка */
+  font-size: 1.5rem;
 }
 .createBtn:hover {
   transition: 0.5s ease-in-out;
-  background: var(--firstBlueShape);
+  background: rgba(0, 0, 34, 0.4);
+  border-color: rgba(0, 0, 34, 0.4);
 }
