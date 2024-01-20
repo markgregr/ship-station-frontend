@@ -69,9 +69,12 @@ const fetchBaggageList = async (searchCode: string): Promise<Baggage[]> => {
     // В случае ошибки выводим сообщение в консоль и возвращаем моковые данные
     console.error("Ошибка при получении списка багажей:", error);
 
-    // Фильтруем моковые данные
+    // Преобразуем поисковый код в нижний регистр
+    const searchCodeLowerCase = searchCode.toLowerCase();
+
+    // Фильтруем моковые данные независимо от регистра
     const filteredMockData = mockBaggageData.filter((mockBaggage) =>
-      mockBaggage.baggage_code.startsWith(searchCode)
+      mockBaggage.baggage_code.toLowerCase().startsWith(searchCodeLowerCase)
     );
 
     // Возвращаем отфильтрованные моковые данные
