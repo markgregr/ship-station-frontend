@@ -21,7 +21,7 @@ const NavigationBar: React.FC = () => {
             <Nav.Link as={Link} to="/about" className={styles.navLink}>
               О нас
             </Nav.Link>
-            <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
+            <Nav.Link as={Link} to="/" className={styles.navLink}>
               Багаж
             </Nav.Link>
           </Nav>
