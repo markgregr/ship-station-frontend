@@ -23,7 +23,7 @@ const App: React.FC = () => {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<HomePage></HomePage>}></Route>
+        <Route path="/about" element={<HomePage></HomePage>}></Route>
         <Route path="/baggage" element={<MainPage></MainPage>}></Route>
         <Route
           path="/baggage/:id"

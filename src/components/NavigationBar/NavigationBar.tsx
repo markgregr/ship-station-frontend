@@ -13,13 +13,13 @@ const NavigationBar: React.FC = () => {
     <Navbar className={styles.navbar}>
       <Container>
         <Navbar.Collapse className={styles.collapse}>
-          <Navbar.Brand as={Link} to="/" className={styles.navbarBrand}>
+          <Navbar.Brand as={Link} to="/baggage" className={styles.navbarBrand}>
             <Image src={logo} alt="Logo" className={styles.logo} />
             BagTracker
           </Navbar.Brand>
           <Nav className={styles.nav}>
-            <Nav.Link as={Link} to="/" className={styles.navLink}>
-              Главная
+            <Nav.Link as={Link} to="/about" className={styles.navLink}>
+              О нас
             </Nav.Link>
             <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
               Багаж

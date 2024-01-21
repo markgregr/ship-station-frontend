@@ -8,7 +8,7 @@ import image4 from "../../public/4.png";
 const mockBaggageData: Baggage[] = [
   {
     airline: "S7 Airline",
-    baggage_code: "#ABC222",
+    baggage_code: "ABC222",
     baggage_id: 1,
     baggage_status: "ативен",
     baggage_type: "сумка",
@@ -20,7 +20,7 @@ const mockBaggageData: Baggage[] = [
   },
   {
     airline: "NordWind",
-    baggage_code: "#AAA123",
+    baggage_code: "AAA123",
     baggage_id: 2,
     baggage_status: "ативен",
     baggage_type: "чемодан",
@@ -32,7 +32,7 @@ const mockBaggageData: Baggage[] = [
   },
   {
     airline: "Аэрофлот",
-    baggage_code: "#BBB123",
+    baggage_code: "BBB123",
     baggage_id: 3,
     baggage_status: "ативен",
     baggage_type: "рюкзак",
@@ -44,7 +44,7 @@ const mockBaggageData: Baggage[] = [
   },
   {
     airline: "Уральские авиалинии",
-    baggage_code: "#CCC123",
+    baggage_code: "CCC123",
     baggage_id: 4,
     baggage_status: "ативен",
     baggage_type: "большой чемодан",
