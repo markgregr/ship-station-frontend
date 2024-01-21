@@ -10,7 +10,7 @@ const BaggageDetailsPage: React.FC = () => {
   const { baggageDetails } = useFetchBaggageDetails(id || "");
   const breadcrumbsPaths = [
     { to: "/about", label: "О нас" },
-    { to: "/baggage", label: "Список багажей" },
+    { to: "/", label: "Список багажей" },
     { to: `/baggage/${id}`, label: "Подробнее о багаже" },
   ];
   return (

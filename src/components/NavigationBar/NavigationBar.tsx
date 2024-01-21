@@ -13,7 +13,7 @@ const NavigationBar: React.FC = () => {
     <Navbar className={styles.navbar}>
       <Container>
         <Navbar.Collapse className={styles.collapse}>
-          <Navbar.Brand as={Link} to="/baggage" className={styles.navbarBrand}>
+          <Navbar.Brand as={Link} to="/" className={styles.navbarBrand}>
             <Image src={logo} alt="Logo" className={styles.logo} />
             BagTracker
           </Navbar.Brand>
