@@ -25,27 +25,27 @@ const ShipDetailsComponent: React.FC<ShipDetailsComponentProps> = ({
         />
         <Card.Body>
           <Card.Title className={styles.cardTitle}>
-            {shipDetails.shipName}
+            {shipDetails.ship_name}
           </Card.Title>
           <Card.Text className={styles.cardText}>
-            <strong>Тип судна:</strong> {shipDetails.shipType}
+            <strong>Тип судна:</strong> {shipDetails.ship_type}
             <br />
-            <strong>Грузоподъемность:</strong> {shipDetails.cargoCapacity} тонн
+            <strong>Грузоподъемность:</strong> {shipDetails.cargo_capacity} тонн
             <br />
-            <strong>Максимальная глубина:</strong> {shipDetails.maxDepth} м
+            <strong>Максимальная глубина:</strong> {shipDetails.max_depth} м
             <br />
-            <strong>Максимальная длина:</strong> {shipDetails.maxLength} м
+            <strong>Максимальная длина:</strong> {shipDetails.max_length} м
             <br />
-            <strong>Год постройки:</strong> {shipDetails.yearBuilt}
+            <strong>Год постройки:</strong> {shipDetails.year_built}
             <br />
             <strong>Флаг:</strong> {shipDetails.flag}
             <br />
             <strong>Классификация:</strong> {shipDetails.classification}
             <br />
-            <strong>Экипаж:</strong> {shipDetails.crewCapacity}
+            <strong>Экипаж:</strong> {shipDetails.crew_capacity}
             <br />
             <strong>Пассажирская вместимость:</strong>{" "}
-            {shipDetails.passengerCapacity}
+            {shipDetails.passenger_capacity}
             <br />
           </Card.Text>
         </Card.Body>
