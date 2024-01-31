@@ -1,10 +1,10 @@
-// В useFetchBaggageDetails.ts
+// В useFetchShipDetails.ts
 import { useState, useEffect } from "react";
-import { fetchBaggageDetails } from "../services/api";
-import { Baggage, ApiResponse } from "../types/types";
+import { fetchShipDetails } from "../services/api";
+import { Ship, ApiResponse } from "../types/types";
 
-const useFetchBaggageDetails = (id: string) => {
-  const [baggageDetails, setBaggageDetails] = useState<Baggage | null>(null);
+const useFetchShipDetails = (id: string) => {
+  const [shipDetails, setShipDetails] = useState<Ship | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -12,19 +12,17 @@ const useFetchBaggageDetails = (id: string) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response: ApiResponse<Baggage> = await fetchBaggageDetails(id);
-
-        console.log("Response in fetchData:", response);
+        const response: ApiResponse<Ship> = await fetchShipDetails(id);
 
         if (response.data) {
-          setBaggageDetails(response.data);
+          setShipDetails(response.data);
         } else {
           throw new Error(
             "Unexpected response format or missing required data"
           );
         }
       } catch (error) {
-        console.error("Error fetching baggage details:", error);
+        console.error("Error fetching ship details:", error);
 
         if (error instanceof Error) {
           setError(error.message);
@@ -39,7 +37,7 @@ const useFetchBaggageDetails = (id: string) => {
     fetchData();
   }, [id]);
 
-  return { baggageDetails, error, loading };
+  return { shipDetails, error, loading };
 };
 
-export default useFetchBaggageDetails;
+export default useFetchShipDetails;

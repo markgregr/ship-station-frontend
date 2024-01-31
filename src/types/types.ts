@@ -3,21 +3,23 @@ interface ApiResponse<T> {
   data: T;
 }
 
-interface BaggageDetailsProps {
-  baggageDetails: Baggage;
+interface ShipDetailsProps {
+  shipDetails: Ship;
 }
 
-interface Baggage {
-  airline: string;
-  baggage_code: string;
-  baggage_id: number;
-  baggage_status: string;
-  baggage_type: string;
-  owner_name: string;
-  pasport_details: string;
+interface Ship {
+  ship_id: number;
+  ship_name: string;
+  ship_type: string;
+  cargo_capacity: number;
+  max_depth: number;
+  max_length: number;
+  year_built: number;
+  flag: string;
+  classification: string;
+  crew_capacity: number;
+  passenger_capacity: number;
   photo: string;
-  size: string;
-  weight: number;
 }
 
-export type { Baggage, ApiResponse, BaggageDetailsProps };
+export type { Ship, ApiResponse, ShipDetailsProps };

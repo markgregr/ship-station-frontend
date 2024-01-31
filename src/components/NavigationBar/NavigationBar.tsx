@@ -15,14 +15,11 @@ const NavigationBar: React.FC = () => {
         <Navbar.Collapse className={styles.collapse}>
           <Navbar.Brand as={Link} to="/" className={styles.navbarBrand}>
             <Image src={logo} alt="Logo" className={styles.logo} />
-            BagTracker
+            ShipStation
           </Navbar.Brand>
           <Nav className={styles.nav}>
-            <Nav.Link as={Link} to="/about" className={styles.navLink}>
-              О нас
-            </Nav.Link>
             <Nav.Link as={Link} to="/" className={styles.navLink}>
-              Багаж
+              Суда
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

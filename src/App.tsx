@@ -1,33 +1,16 @@
 import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import MainPage from "./pages/BaggageListPage";
-import BaggagePage from "./pages/BaggageDetailsPage";
-import HomePage from "./pages/HomePage";
-
-// const router = createBrowserHashRouter([
-//   {
-//     path: "/",
-//     element: <HomePage></HomePage>,
-//   },
-//   {
-//     path: "/baggage",
-//     element: <MainPage></MainPage>,
-//   },
-//   {
-//     path: "/baggage/:id",
-//     element: <BaggagePage></BaggagePage>,
-//   },
-// ]);
+import ShipDetailsPage from "./pages/ShipDetailsPage";
+import ShipListPage from "./pages/ShipListPage";
 
 const App: React.FC = () => {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/about" element={<HomePage></HomePage>}></Route>
-        <Route path="/" element={<MainPage></MainPage>}></Route>
+        <Route path="/" element={<ShipListPage></ShipListPage>}></Route>
         <Route
-          path="/baggage/:id"
-          element={<BaggagePage></BaggagePage>}
+          path="/ship/:id"
+          element={<ShipDetailsPage></ShipDetailsPage>}
         ></Route>
       </Routes>
     </HashRouter>

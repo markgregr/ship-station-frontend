@@ -1,8 +1,8 @@
-/* BaggageDetailsComponent.module.css */
+/* ShipDetailsComponent.module.css */
 
 .card {
   background: none;
-  color: #fff;
+  color: #e8a236;
   border: none;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -24,7 +24,7 @@
 
 .cardTitle {
   font: normal 2.5rem/2.125rem var(--euclidflex-regular);
-  color: #fff;
+  color: #e8a236;
   margin-bottom: 20px;
   margin-top: 10px;
 }

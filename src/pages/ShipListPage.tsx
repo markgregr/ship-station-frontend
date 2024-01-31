@@ -1,17 +1,17 @@
 // MainPage.tsx
 import React, { useState } from "react";
-import NavbarComponent from "../components/Navbar/NavbarComponent";
-import BaggageList from "../components/BaggageList/BaggageList";
+import NavbarComponent from "../components/NavbarShipList/NavbarComponent";
+import ShipList from "../components/ShipList/ShipList";
 import styles from "../App.module.css";
-import useFetchBaggageList from "../hooks/useFetchBaggageList";
+import useFetchShipList from "../hooks/useFetchShipList";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
 
-const BaggageListPage: React.FC = () => {
-  const [searchCode, setSearchCode] = useState<string>("");
-  const { baggageData, noResults } = useFetchBaggageList(searchCode);
+const ShipListPage: React.FC = () => {
+  const [shipName, setShipName] = useState<string>("");
+  const { shipData, noResults } = useFetchShipList(shipName);
 
   const handleSearch = (code: string) => {
-    setSearchCode(code);
+    setShipName(code);
   };
 
   return (
@@ -21,10 +21,10 @@ const BaggageListPage: React.FC = () => {
       {noResults ? (
         <div className={styles.pageTitle}>Ничего не найдено</div>
       ) : (
-        <BaggageList baggageData={baggageData} />
+        <ShipList shipData={shipData} />
       )}
     </div>
   );
 };
 
-export default BaggageListPage;
+export default ShipListPage;

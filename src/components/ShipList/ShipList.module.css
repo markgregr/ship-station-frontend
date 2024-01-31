@@ -1,15 +1,14 @@
-/* BaggageList.css */
+/* ShipList.css */
 
 .cardsTitle {
   font: normal 2.1rem/2.125rem var(--euclidflex-regular);
-  color: #fff;
+  color: #e8a236;
   margin-bottom: 0;
 }
 
-/* Стили для карточек багажей */
 .cards {
   background: none;
-  color: #fff;
+  color: #e8a236;
   border: 1px solid rgba(0, 0, 0, 0.2);
   text-align: center;
   display: grid;
@@ -35,7 +34,7 @@
   height: auto; /* Автоматическая высота, чтобы изображение не искажалось */
 }
 
-/* BaggageList.module.css */
+/* ShipList.module.css */
 .cardsText {
   font: normal 1.5rem/3.125rem var(--euclidflex-regular);
 }

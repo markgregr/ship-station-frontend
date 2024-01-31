@@ -22,6 +22,6 @@
 }
 
 .breadcrumbItem.active {
-  color: #007bff; /* Color of the active breadcrumb item */
+  color: #e8a236; /* Color of the active breadcrumb item */
   font-weight: bold;
 }

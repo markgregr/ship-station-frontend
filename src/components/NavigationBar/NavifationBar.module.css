@@ -1,5 +1,5 @@
 .navbar {
-  background-color: rgba(0, 0, 34, 0.3);
+  background-color: #150b0b;
   padding: 0% 1% 0 1%;
 }
 .logo {
@@ -16,8 +16,8 @@
 }
 
 .navbarBrand {
-  color: #fff;
-  font-size: 24px;
+  color: #e8a236;
+  font-size: 30px;
   font-weight: bold;
   margin-right: 7%;
 }
@@ -36,9 +36,9 @@
 .navLink {
   padding: 10px 30px;
   cursor: pointer;
-  color: #fff;
+  color: #e8a236;
   font-family: "EuclidFlex Bold", sans-serif;
-  font-size: 18px;
+  font-size: 22px;
   text-decoration: none;
   transition: background 0.5s ease-in-out;
 }
@@ -46,5 +46,5 @@
 .navLink:hover,
 .navLink:active,
 .navLink:focus {
-  background: #2980b9;
+  background: linear-gradient(200deg, #363636 18.39%, #212121 84.11%);
 }

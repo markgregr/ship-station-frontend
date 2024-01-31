@@ -1,3 +1,30 @@
+@font-face {
+  font-family: "EuclidFlex Bold";
+  src: url("../fonts/EuclidFlex-Bold.eot") format("otf"),
+    url("../fonts/EuclidFlex-Bold.ttf") format("ttf"),
+    url("../fonts/EuclidFlex-Bold.woff") format("woff"),
+    url("../fonts/EuclidFlex-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EuclidFlex Medium";
+  src: url("../fonts/EuclidFlex-Medium.eot") format("otf"),
+    url("../fonts/EuclidFlex-Medium.ttf") format("ttf"),
+    url("../fonts/EuclidFlex-Medium.woff") format("woff"),
+    url("../fonts/EuclidFlex-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "EuclidFlex Regular";
+  src: url("../fonts/EuclidFlex-Regular.otf") format("otf"),
+    url("../fonts/EuclidFlex-Regular.ttf") format("ttf"),
+    url("../fonts/EuclidFlex-Regular.woff") format("woff"),
+    url("../fonts/EuclidFlex-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+}
 :root {
   color: white;
   font-family: Inter;
