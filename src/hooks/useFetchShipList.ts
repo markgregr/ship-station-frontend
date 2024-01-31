@@ -20,7 +20,7 @@ const useFetchShipData = (shipName: string) => {
           setShipData([]);
         }
       } catch (error) {
-        console.error("Ошибка при получении данных о багаже:", error);
+        console.error("Ошибка при получении данных о судн:", error);
         setNoResults(true);
         setShipData([]);
       }

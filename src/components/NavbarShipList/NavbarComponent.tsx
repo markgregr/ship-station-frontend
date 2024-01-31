@@ -34,13 +34,13 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
         <Navbar.Collapse className={styles.collapse}>
           <Nav className={styles.nav}>
             <Nav.Link className={styles.btn} onClick={handleShowAllShip}>
-              Весь багаж
+              Все суда
             </Nav.Link>
           </Nav>
           <Form className={styles.form} onSubmit={handleSearch}>
             <FormControl
               type="search"
-              placeholder="Введите код багажа"
+              placeholder="Введите название судна"
               className={styles.searchInput}
               aria-label="Поиск"
               value={shipName}

@@ -83,7 +83,6 @@ body {
 .input-group input::placeholder {
   color: rgb(109, 100, 45);
 }
-/* Стили для контейнера с карточками багажа */
 .container .row {
   border: 2px solid #150b0b;
   padding: 20px;
@@ -96,7 +95,7 @@ body {
   padding-top: 2%;
   margin-bottom: 0;
 }
-/* Стили для карточек багажей */
+
 .cards {
   background: none;
   color: #e8a236; /* изменен цвет текста */

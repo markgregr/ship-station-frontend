@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Image from "react-bootstrap/Image"; // Добавлен импорт компонента Image
-import logo from "../../../public/BagTracker.png"; // Замените на путь к вашему логотипу
+import logo from "../../../public/ShipStation.png"; // Замените на путь к вашему логотипу
 import styles from "./NavifationBar.module.css";
 
 const NavigationBar: React.FC = () => {

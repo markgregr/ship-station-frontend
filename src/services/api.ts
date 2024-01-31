@@ -14,7 +14,7 @@ const fetchShipDetails = async (id: string): Promise<ApiResponse<Ship>> => {
     console.log(data);
     return { data: data.ship };
   } catch (error) {
-    console.error("Ошибка при получении деталей багажа:", error);
+    console.error("Ошибка при получении деталей суд:", error);
     return { data: mockShipData[0] };
   }
 };
