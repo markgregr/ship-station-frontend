@@ -12,7 +12,6 @@ const RegisterPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const loading = useSelector(selectLoading);
-  console.log(loading);
   const handleRegister = (
     full_name: string,
     email: string,

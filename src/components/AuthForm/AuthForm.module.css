@@ -1,11 +1,11 @@
 /* AuthForm.module.css */
 .authForm {
   background: none;
-  color: #fff;
+  color: #e8a236;
   border: none;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  width: 300px;
+  width: 20%;
   height: 50vh;
   margin: auto;
   margin-top: 50px;
@@ -13,13 +13,14 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  height: 450px;
+  height: auto;
 }
 
 .title {
-  font-size: 24px;
+  font-size: 2rem;
   font-family: "EuclidFlex Bold", sans-serif;
   margin-bottom: 20px;
+  color: #e8a236;
 }
 
 .formgroup {
@@ -30,21 +31,20 @@
 }
 
 .input {
-  color: white;
-  font-size: 20px;
+  color: #e8a236;
+  font-size: 1.6rem;
   border: 1px solid var(--euclidflex-medium);
   background-color: transparent;
   transition: background-color 0.3s ease;
-  height: 40px;
-  width: 80%; /* Изменено для выравнивания вправо */
+  margin-right: 10px;
+  height: 60px; /* Добавьте высоту для выравнивания с кнопкой поиска */
 }
 
 .label {
-  font-size: 18px;
+  font-size: 1.4rem;
   margin-bottom: 10px;
   font-family: "EuclidFlex Bold", serif;
   text-align: left;
-  /* Изменено для выравнивания влево */
 }
 
 .loginButton {
@@ -52,17 +52,22 @@
   height: 60px;
   cursor: pointer;
   background: transparent;
+  border: 1px solid #150b0b;
   outline: none;
   transition: 0.5s ease-in-out;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
+  color: #e8a236; /* изменен цвет текста */
   font-family: "EuclidFlex Bold", sans-serif;
-  font-size: 18px;
+  font-size: 1.6rem;
 }
 
-.loginButton:hover {
-  background-color: #02feff;
+.loginButton:hover,
+.loginButton:active,
+.loginButton:focus {
+  transition: 0.5s ease-in-out;
+  background: #150b0b;
+  border: 1px solid #150b0b;
 }

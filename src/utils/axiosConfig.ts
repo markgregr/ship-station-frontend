@@ -11,7 +11,6 @@ instance.interceptors.request.use(
     const authState = authStateString ? JSON.parse(authStateString) : null;
     const token =
       authState && typeof authState === "object" ? authState.token : null;
-    console.log(token);
     if (token) {
       config.headers.Authorization = `${token}`;
     }

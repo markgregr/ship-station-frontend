@@ -21,7 +21,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
   };
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/baggage");
+      navigate("/ship");
     }
   }, [navigate]);
   return (

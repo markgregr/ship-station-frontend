@@ -7,7 +7,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button"; // Импортируем компонент Button из Bootstrap
-import logo from "../../../public/BagTracker.png";
+import logo from "../../../public/ShipStation.png";
 import styles from "./NavigationBar.module.css";
 import { logout } from "../../redux/auth/authActions.ts"; // Импортируем экшен для выхода
 import {
@@ -15,7 +15,7 @@ import {
   selectRole,
   selectfull_name,
 } from "../../redux/auth/authSelectors.ts";
-import { selectDeliveryID } from "../../redux/baggage/baggageListSelectors.ts";
+import { selectRequestID } from "../../redux/ship/shipListSelectors.ts";
 import { selectisAdmin } from "../../redux/additional/additionalSelectors.ts";
 import { toggleAdmin } from "../../redux/additional/additionalSlice.ts";
 import { Form } from "react-bootstrap";
@@ -25,12 +25,12 @@ const NavigationBar: React.FC = () => {
   const navigate = useNavigate();
   const full_name = useSelector(selectfull_name);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const deliveryID = useSelector(selectDeliveryID);
+  const requestID = useSelector(selectRequestID);
   const isAdmin = useSelector(selectisAdmin);
   const role = useSelector(selectRole);
   const showConstructor = {
-    showConstructorButton: deliveryID > 0,
-    deliveryID,
+    showConstructorButton: requestID > 0,
+    requestID,
   };
   const handleLogout = () => {
     dispatch(logout({ navigate }));
@@ -40,9 +40,9 @@ const NavigationBar: React.FC = () => {
     <Navbar className={styles.navbar}>
       <Container>
         <Navbar.Collapse className={styles.collapse}>
-          <Navbar.Brand as={Link} to="/baggage" className={styles.navbarBrand}>
+          <Navbar.Brand as={Link} to="/ship" className={styles.navbarBrand}>
             <Image src={logo} alt="Logo" className={styles.logo} />
-            BagTracker
+            ShipStation
           </Navbar.Brand>
           <Navbar.Brand className={styles.navbarBrand}>
             {full_name}
@@ -50,24 +50,15 @@ const NavigationBar: React.FC = () => {
           <Nav className={styles.nav}>
             {isAuthenticated && (
               <>
-                {/* {role === "модератор" && (
-                  <Form.Check
-                    className={styles.customSwitch}
-                    type="switch"
-                    label="Модератор"
-                    checked={isAdmin}
-                    onChange={() => dispatch(toggleAdmin(!isAdmin))}
-                  />
-                )} */}
-                <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
-                  Багаж
+                <Nav.Link as={Link} to="/ship" className={styles.navLink}>
+                  Суда
                 </Nav.Link>
-                <Nav.Link as={Link} to="/delivery" className={styles.navLink}>
+                <Nav.Link as={Link} to="/request" className={styles.navLink}>
                   {isAdmin ? "Заявки" : "Мои заявки"}
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
-                  to={`/delivery/${showConstructor.deliveryID}`}
+                  to={`/request/${showConstructor.requestID}`}
                   disabled={!showConstructor.showConstructorButton}
                   className={`${styles.navLink} ${
                     !showConstructor.showConstructorButton
@@ -89,8 +80,8 @@ const NavigationBar: React.FC = () => {
             )}
             {!isAuthenticated && (
               <>
-                <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
-                  Багаж
+                <Nav.Link as={Link} to="/ship" className={styles.navLink}>
+                  Суда
                 </Nav.Link>
                 <Nav.Link as={Link} to="/auth" className={styles.navLink}>
                   Вход
