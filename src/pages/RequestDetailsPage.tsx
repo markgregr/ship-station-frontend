@@ -15,10 +15,8 @@ import { selectRequestID } from "../redux/ship/shipListSelectors.ts";
 import { deleteRequest } from "../redux/ship/shipListThunk.ts";
 import NavbarRequestDetails from "../components/NavbarRequestDetails/NavbarRequestDetails.tsx";
 import { Spin } from "antd";
-import {
-  selectLoading,
-  selectisAdmin,
-} from "../redux/additional/additionalSelectors.ts";
+import { selectLoading } from "../redux/additional/additionalSelectors.ts";
+import { selectisAdmin } from "../redux/auth/authSelectors.ts";
 
 const RequestDetailsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

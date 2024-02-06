@@ -11,12 +11,14 @@ import {
   selectshipName,
   selectShipData,
 } from "../redux/ship/shipListSelectors";
-import { selectIsAuthenticated } from "../redux/auth/authSelectors";
+import {
+  selectIsAuthenticated,
+  selectisAdmin,
+} from "../redux/auth/authSelectors";
 import { Spin } from "antd";
 import {
   selectLoading,
   selectResult,
-  selectisAdmin,
 } from "../redux/additional/additionalSelectors";
 
 const ShipListPage: React.FC = () => {

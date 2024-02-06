@@ -14,11 +14,9 @@ import {
   selectIsAuthenticated,
   selectRole,
   selectfull_name,
+  selectisAdmin,
 } from "../../redux/auth/authSelectors.ts";
 import { selectRequestID } from "../../redux/ship/shipListSelectors.ts";
-import { selectisAdmin } from "../../redux/additional/additionalSelectors.ts";
-import { toggleAdmin } from "../../redux/additional/additionalSlice.ts";
-import { Form } from "react-bootstrap";
 
 const NavigationBar: React.FC = () => {
   const dispatch = useDispatch(); // Получаем функцию dispatch из хука useDispatch

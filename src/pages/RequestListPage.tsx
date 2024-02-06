@@ -14,12 +14,9 @@ import {
   selectRequests,
 } from "../redux/request/requestListSelectors";
 import { Spin } from "antd";
-import {
-  selectLoading,
-  selectisAdmin,
-} from "../redux/additional/additionalSelectors";
+import { selectLoading } from "../redux/additional/additionalSelectors";
 import NavbarRequest from "../components/NavbarRequest/NavbarRequest";
-import { selectRole } from "../redux/auth/authSelectors";
+import { selectRole, selectisAdmin } from "../redux/auth/authSelectors";
 
 const RequestListPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

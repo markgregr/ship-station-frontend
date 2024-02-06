@@ -21,7 +21,7 @@ import {
   selectOwnerName,
   selectStartFormationDate,
 } from "../../redux/request/requestListSelectors";
-import { selectisAdmin } from "../../redux/additional/additionalSelectors";
+import { selectisAdmin } from "../../redux/auth/authSelectors";
 
 interface NavbarRequestProps {}
 
@@ -53,12 +53,6 @@ const NavbarRequest: React.FC<NavbarRequestProps> = () => {
     }
   };
 
-  // const handleSearch = debounce(() => {
-  //   const currentValue = inputRef.current;
-  //   if (currentValue && currentValue.trim() !== "") {
-  //     dispatch(setOwnerName(currentValue.trim()));
-  //   }
-  // }, 1200);
   const handleSearch = () => {
     const currentValue = inputRef.current;
     console.log("Current value in handleSearch:", currentValue);
