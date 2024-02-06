@@ -1,6 +1,7 @@
 @font-face {
   font-family: "EuclidFlex Bold";
-  src: url("./fonts/EuclidFlex-Bold.eot") format("otf"),
+  src:
+    url("./fonts/EuclidFlex-Bold.eot") format("otf"),
     url("./fonts/EuclidFlex-Bold.ttf") format("ttf"),
     url("./fonts/EuclidFlex-Bold.woff") format("woff"),
     url("./fonts/EuclidFlex-Bold.woff2") format("woff2");
@@ -9,7 +10,8 @@
 }
 @font-face {
   font-family: "EuclidFlex Medium";
-  src: url("./fonts/EuclidFlex-Medium.eot") format("otf"),
+  src:
+    url("./fonts/EuclidFlex-Medium.eot") format("otf"),
     url("./fonts/EuclidFlex-Medium.ttf") format("ttf"),
     url("./fonts/EuclidFlex-Medium.woff") format("woff"),
     url("./fonts/EuclidFlex-Medium.woff2") format("woff2");
@@ -18,7 +20,8 @@
 }
 @font-face {
   font-family: "EuclidFlex Regular";
-  src: url("./fonts/EuclidFlex-Regular.otf") format("otf"),
+  src:
+    url("./fonts/EuclidFlex-Regular.otf") format("otf"),
     url("./fonts/EuclidFlex-Regular.ttf") format("ttf"),
     url("./fonts/EuclidFlex-Regular.woff") format("woff"),
     url("./fonts/EuclidFlex-Regular.woff2") format("woff2");
@@ -40,7 +43,7 @@
 :root {
   color: white;
   font-family: Inter;
-  font-weight: 400;
+  font-cargo_capacity: 400;
   line-height: 60px;
   word-wrap: break-word;
   --w: white;
@@ -57,7 +60,7 @@
 
 /* Общие стили */
 body {
-  background: linear-gradient(156.2deg, #000022 18.39%, #5d13f9 84.11%);
+  background: linear-gradient(200deg, #363636 18.39%, #212121 84.11%);
   background-repeat: no-repeat;
   min-height: 100vh;
   margin: 0;
@@ -110,7 +113,7 @@ body {
   margin-left: 250px; /* Выравнивание по правому краю */
 }
 
-/* Стили для контейнера с карточками багажа */
+/* Стили для контейнера с карточками судноа */
 .container .row {
   border: 2px solid #5d13f9; /* Устанавливаем фиолетовую рамку */
   padding: 20px; /* Добавляем отступ внутрь рамки */
@@ -122,7 +125,7 @@ body {
   color: #fff;
   margin-bottom: 0;
 }
-/* Стили для карточек багажей */
+/* Стили для карточек судноей */
 .cards {
   background: none;
   color: #fff;

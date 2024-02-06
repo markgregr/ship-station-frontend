@@ -10,43 +10,43 @@ import {
 } from "react-bootstrap";
 import styles from "./NavbarComponent.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectsearchCode } from "../../redux/baggage/baggageListSelectors";
-import { setsearchCode } from "../../redux/baggage/baggageListSlice";
+import { selectshipName } from "../../redux/ship/shipListSelectors";
+import { setshipName } from "../../redux/ship/shipListSlice";
 
 interface NavbarComponentProps {
-  onSearch: (searchCode: string) => void;
+  onSearch: (shipName: string) => void;
 }
 
 const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
   const dispatch = useDispatch();
-  const searchCodeRedux = useSelector(selectsearchCode);
-  const initialsearchCode =
-    typeof searchCodeRedux === "string" ? searchCodeRedux : "";
+  const shipNameRedux = useSelector(selectshipName);
+  const initialshipName =
+    typeof shipNameRedux === "string" ? shipNameRedux : "";
 
-  const [searchCode, setsearchCodeLocal] = useState<string>(
-    decodeURIComponent(initialsearchCode)
+  const [shipName, setshipNameLocal] = useState<string>(
+    decodeURIComponent(initialshipName)
   );
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const encodedsearchCode = encodeURIComponent(searchCode);
+    const encodedshipName = encodeURIComponent(shipName);
 
-    // Передаем cleanedsearchCode в onSearch
-    onSearch(encodedsearchCode);
+    // Передаем cleanedshipName в onSearch
+    onSearch(encodedshipName);
 
-    // Сохраняем searchCode в Redux (без кодирования)
-    dispatch(setsearchCode(encodedsearchCode));
+    // Сохраняем shipName в Redux (без кодирования)
+    dispatch(setshipName(encodedshipName));
   };
 
-  const handleShowAllBaggage = () => {
-    setsearchCodeLocal("");
+  const handleShowAllShip = () => {
+    setshipNameLocal("");
 
     // Передаем пустую строку в onSearch
     onSearch("");
 
     // Сохраняем пустую строку в Redux и localStorage
-    dispatch(setsearchCode(""));
+    dispatch(setshipName(""));
   };
 
   return (
@@ -55,18 +55,18 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ onSearch }) => {
         <Navbar.Toggle className={styles.toggleButton} />
         <Navbar.Collapse className={styles.collapse}>
           <Nav className={styles.nav}>
-            <Nav.Link className={styles.navLink} onClick={handleShowAllBaggage}>
-              Весь багаж
+            <Nav.Link className={styles.navLink} onClick={handleShowAllShip}>
+              Все суда
             </Nav.Link>
           </Nav>
           <Form className={styles.form} onSubmit={handleSearch}>
             <FormControl
               type="search"
-              placeholder="Поиск"
+              placeholder="Введите название судна"
               className={styles.searchInput}
               aria-label="Поиск"
-              value={searchCode}
-              onChange={(e) => setsearchCodeLocal(e.target.value)}
+              value={shipName}
+              onChange={(e) => setshipNameLocal(e.target.value)}
             />
             <Button
               variant="outline-success"

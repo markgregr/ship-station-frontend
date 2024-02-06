@@ -1,12 +1,11 @@
 // AppRoutes.tsx
 import { RouteObject, useRoutes } from "react-router-dom";
-import BaggageListPage from "./pages/BaggageListPage";
-import BaggageDetailsPage from "./pages/BaggageDetailsPage";
+import ShipListPage from "./pages/ShipListPage";
+import ShipDetailsPage from "./pages/ShipDetailsPage";
 import AuthPage from "./pages/AuthPage";
-import DeliveryDetailsPage from "./pages/DeliveryDetailsPage";
+import RequestDetailsPage from "./pages/RequestDetailsPage";
 import RegisterPage from "./pages/RegisterPage";
-import HomePage from "./pages/HomePage";
-import DeliveryListPage from "./pages/DeliveryListPage";
+import RequestListPage from "./pages/RequestListPage";
 import { MainLayout } from "./components/MainLayout/MainLayout";
 
 const routes: RouteObject[] = [
@@ -15,35 +14,31 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <BaggageListPage />,
+        element: <ShipListPage />,
       },
       {
-        path: "/baggage/:id",
-        element: <BaggageDetailsPage />,
+        path: "/ship/:id",
+        element: <ShipDetailsPage />,
       },
       {
         path: "/auth",
         element: <AuthPage />,
       },
       {
-        path: "/delivery",
-        element: <DeliveryListPage />,
+        path: "/request",
+        element: <RequestListPage />,
       },
       {
-        path: "/delivery/:id",
-        element: <DeliveryDetailsPage />,
+        path: "/request/:id",
+        element: <RequestDetailsPage />,
       },
       {
-        path: "/baggage", // Добавлено
-        element: <BaggageListPage />, // Добавлено
+        path: "/ship", // Добавлено
+        element: <ShipListPage />, // Добавлено
       },
       {
         path: "/register", // Добавлено
         element: <RegisterPage />, // Добавлено
-      },
-      {
-        path: "*",
-        element: <HomePage />,
       },
     ],
   },

@@ -7,24 +7,24 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button"; // Импортируем компонент Button из Bootstrap
-import logo from "../../../public/BagTracker.png";
+import logo from "../../../public/ShipStation.png";
 import styles from "./NavigationBar.module.css";
 import { logout } from "../../redux/auth/authActions.ts"; // Импортируем экшен для выхода
 import {
   selectIsAuthenticated,
   selectfull_name,
 } from "../../redux/auth/authSelectors.ts";
-import { selectDeliveryID } from "../../redux/baggage/baggageListSelectors.ts";
+import { selectRequestID } from "../../redux/ship/shipListSelectors.ts";
 
 const NavigationBar: React.FC = () => {
   const dispatch = useDispatch(); // Получаем функцию dispatch из хука useDispatch
   const navigate = useNavigate();
   const full_name = useSelector(selectfull_name);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const deliveryID = useSelector(selectDeliveryID);
+  const requestID = useSelector(selectRequestID);
   const showConstructor = {
-    showConstructorButton: deliveryID > 0,
-    deliveryID,
+    showConstructorButton: requestID > 0,
+    requestID,
   };
   const handleLogout = () => {
     dispatch(logout({ navigate })); // Диспатчим экшен для выхода
@@ -35,9 +35,9 @@ const NavigationBar: React.FC = () => {
     <Navbar className={styles.navbar}>
       <Container>
         <Navbar.Collapse className={styles.collapse}>
-          <Navbar.Brand as={Link} to="/baggage" className={styles.navbarBrand}>
+          <Navbar.Brand as={Link} to="/ship" className={styles.navbarBrand}>
             <Image src={logo} alt="Logo" className={styles.logo} />
-            BagTracker
+            ShipStation
           </Navbar.Brand>
           <Navbar.Brand className={styles.navbarBrand}>
             {full_name}
@@ -45,15 +45,15 @@ const NavigationBar: React.FC = () => {
           <Nav className={styles.nav}>
             {isAuthenticated && (
               <>
-                <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
-                  Багаж
+                <Nav.Link as={Link} to="/ship" className={styles.navLink}>
+                  Суда
                 </Nav.Link>
-                <Nav.Link as={Link} to="/delivery" className={styles.navLink}>
+                <Nav.Link as={Link} to="/request" className={styles.navLink}>
                   Мои заявки
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
-                  to={`/delivery/${showConstructor.deliveryID}`}
+                  to={`/request/${showConstructor.requestID}`}
                   disabled={!showConstructor.showConstructorButton}
                   className={`${styles.navLink} ${
                     !showConstructor.showConstructorButton
@@ -75,8 +75,8 @@ const NavigationBar: React.FC = () => {
             )}
             {!isAuthenticated && (
               <>
-                <Nav.Link as={Link} to="/baggage" className={styles.navLink}>
-                  Багаж
+                <Nav.Link as={Link} to="/ship" className={styles.navLink}>
+                  Суда
                 </Nav.Link>
                 <Nav.Link as={Link} to="/auth" className={styles.navLink}>
                   Вход

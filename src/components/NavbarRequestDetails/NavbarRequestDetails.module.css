@@ -1,0 +1,36 @@
+.btn {
+  width: 180px;
+  height: 60px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #150b0b;
+  outline: none;
+  transition: 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #e8a236; /* изменен цвет текста */
+  font-family: "EuclidFlex Bold", sans-serif;
+  font-size: 1.4rem;
+}
+
+.btn:hover {
+  transition: 0.5s ease-in-out;
+  background: #150b0b;
+  border: 1px solid #150b0b;
+}
+
+.flexContainer {
+  display: flex;
+  align-items: center;
+}
+.buttonContainer {
+  display: flex;
+  margin: 1%;
+}
+.disabledLink {
+  color: #888; /* цвет текста тусклой ссылки */
+  cursor: not-allowed; /* изменение курсора на "not-allowed" */
+  pointer-events: none; /* отключение событий указателя (ссылка становится непереходимой) */
+}

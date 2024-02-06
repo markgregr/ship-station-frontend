@@ -1,0 +1,133 @@
+/* NavbarRequest.module.css */
+*,
+:after,
+::before {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: white;
+  box-sizing: border-box;
+}
+
+:root {
+  color: white;
+  font-family: Inter;
+  font-cargo_capacity: 400;
+  line-height: 60px;
+  word-wrap: break-word;
+  --w: white;
+  --navy: #000022;
+  --indigo: #5d13f9;
+  --darkShape: #000022;
+  --firstBlueShape: #0777fd;
+  --secondBlueShape: #02feff;
+  --whiteShape: #ffffff;
+  --euclidflex-medium: "EuclidFlex Medium", sans-serif;
+  --euclidflex-bold: "EuclidFlex Bold", sans-serif;
+  --euclidflex-regular: "EuclidFlex Regular", sans-serif;
+}
+/* Стили для блока, содержащего линки и форму поиска */
+.navbar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  padding: 10px;
+  margin-top: 50px;
+  font-family: "EuclidFlex Medium";
+  font-size: large;
+}
+/* Дополнительные стили для формы поиска */
+.form {
+  display: flex;
+  align-items: center;
+  margin-left: 200px; /* Увеличил отступ слева для лучшего визуального разделения */
+  margin-bottom: 0;
+}
+
+.searchInput {
+  color: #e8a236;
+  font-size: 1.6rem;
+  border: 1px solid var(--euclidflex-medium);
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+  height: 60px; /* Добавьте высоту для выравнивания с кнопкой поиска */
+}
+.searchOwner {
+  color: #e8a236;
+  font-size: 1.6rem;
+  border: 1px solid var(--euclidflex-medium);
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+  height: 40px; /* Добавьте высоту для выравнивания с кнопкой поиска */
+}
+
+.datePicker {
+  color: #e8a236;
+  font-family: "EuclidFlex Medium";
+  font-size: 1.6rem;
+  outline: none;
+  border-radius: 5px;
+}
+
+.datePicker::-webkit-calendar-picker-indicator {
+  background-color: rgb(143, 48, 45);
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: "EuclidFlex Medium";
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  background-color: rgb(143, 48, 45);
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+  z-index: 1;
+  font-size: 1.4rem;
+  font-family: "EuclidFlex Medium";
+}
+
+/* Расположение значений списка в столбик */
+.dropdownContent a {
+  display: block;
+  color: #e8a236;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.dropdownContent a:hover {
+  background: linear-gradient(200deg, #363636 18.39%, #212121 84.11%);
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+.dropdownToggle {
+  background-color: var(--euclidflex-medium);
+  border: none;
+  font-family: "EuclidFlex Medium";
+  font-size: 1.6rem;
+  color: #e8a236;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+/* Исправление для кнопок, чтобы они были ровно выровнены с другими элементами */
+.searchButton,
+.dropdownToggle {
+  margin-top: 0;
+}
