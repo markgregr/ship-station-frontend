@@ -25,8 +25,8 @@ const NavbarRequestDetails: React.FC = () => {
     try {
       setLoading(true);
       await dispatch(formRequest(String(id)));
+      navigate("/ship");
     } catch (error) {
-      console.error("Error forming request", error);
     } finally {
       setLoading(false);
       dispatch({ type: "setRequestDetails", payload: null });
