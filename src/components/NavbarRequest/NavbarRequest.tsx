@@ -55,9 +55,7 @@ const NavbarRequest: React.FC<NavbarRequestProps> = () => {
 
   const handleSearch = () => {
     const currentValue = inputRef.current;
-    console.log("Current value in handleSearch:", currentValue);
     if (currentValue && currentValue !== "") {
-      console.log("Value to be dispatched:", currentValue);
       dispatch(setOwnerName(currentValue));
     }
   };
@@ -67,15 +65,13 @@ const NavbarRequest: React.FC<NavbarRequestProps> = () => {
   }, [ownerName, startDate, endDate, status]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //console.log("Input value before setting ref:", e.target.value);
     inputRef.current = e.target.value;
-    //console.log("Input value after setting ref:", inputRef.current);
     handleSearch();
   };
 
   const handleClearSearch = () => {
     dispatch(setOwnerName(""));
-    inputRef.current = ""; // Добавим эту строку для сброса ref при очистке поиска
+    inputRef.current = "";
   };
 
   return (
